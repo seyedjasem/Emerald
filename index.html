@@ -2,172 +2,762 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>ایده گستران زمرد هوشمند — Emerald</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ایده گستران زمرد هوشمند — Emerald IoT</title>
+  <meta name="description" content="تولیدکننده تجهیزات IoT و راهکارهای هوشمند صنعتی">
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* --- Variables & Reset --- */
+    :root {
+      --primary: #10b981; /* Emerald 500 */
+      --primary-dark: #047857; /* Emerald 700 */
+      --secondary: #1f2937; /* Gray 800 */
+      --accent: #34d399; /* Emerald 400 */
+      --bg-light: #f9fafb;
+      --bg-white: #ffffff;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --border: #e5e7eb;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --radius: 12px;
+      --container-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* --- Utility Classes --- */
+    .container {
+      max-width: var(--container-width);
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px 0 rgba(16, 185, 129, 0.39);
+    }
+    .btn-primary:hover {
+      background-color: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+    .btn-outline:hover {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .section-header h3 {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    .section-header p {
+      color: var(--text-muted);
+    }
+
+    /* --- Header --- */
+    .site-header {
+      background-color: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+    }
+
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      color: var(--primary);
+      width: 40px;
+      height: 40px;
+    }
+
+    .brand h1 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--secondary);
+      line-height: 1.2;
+    }
+    .brand .tagline {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 2rem;
+    }
+    .main-nav a {
+      font-weight: 500;
+      color: var(--text-muted);
+      position: relative;
+    }
+    .main-nav a:hover, .main-nav a.active {
+      color: var(--primary);
+    }
+    .main-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      right: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    .main-nav a:hover::after {
+      width: 100%;
+    }
+
+    .cta-btn {
+      display: none; /* Desktop only mostly */
+    }
+    @media(min-width: 768px) {
+      .cta-btn { display: inline-flex; }
+    }
+
+    /* Mobile Menu Toggle */
+    .hamburger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--secondary);
+    }
+
+    /* --- Hero Section --- */
+    .hero {
+      padding: 6rem 0;
+      background: radial-gradient(circle at top right, #ecfdf5, transparent);
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text h2 {
+      font-size: 3rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+    .hero-text h2 span {
+      color: var(--primary);
+    }
+
+    .hero-text p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+      margin-bottom: 2.5rem;
+      max-width: 90%;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .hero-media {
+      position: relative;
+    }
+    .hero-media img {
+      border-radius: 20px;
+      box-shadow: var(--shadow-lg);
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: transform 0.5s;
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+    .hero-media:hover img {
+      transform: perspective(1000px) rotateY(0deg);
+    }
+
+    /* --- About Section --- */
+    .section {
+      padding: 5rem 0;
+    }
+
+    .about-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      padding: 3rem;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .features-list {
+      margin-top: 1.5rem;
+    }
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+    .check-icon {
+      color: var(--primary);
+      min-width: 20px;
+    }
+
+    /* --- Products --- */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .product-card {
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .product-img-wrapper {
+      height: 220px;
+      overflow: hidden;
+    }
+    .product-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+    .product-card:hover .product-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .product-body {
+      padding: 1.5rem;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-body h4 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--secondary);
+    }
+
+    .product-body p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+    .link-btn {
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* --- Gallery --- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      position: relative;
+      height: 250px;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .gallery-item:hover .gallery-overlay {
+      opacity: 1;
+    }
+
+    /* --- Contact --- */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.5fr;
+      gap: 0;
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-info {
+      background: var(--secondary);
+      color: white;
+      padding: 3rem;
+    }
+    .contact-info h3 { margin-bottom: 1.5rem; color: var(--primary); }
+    .contact-detail { margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
+    .contact-detail a { color: #d1d5db; }
+
+    .contact-form-container {
+      padding: 3rem;
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .form-input {
+      width: 100%;
+      padding: 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.3s;
+    }
+    .form-input:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    /* --- Footer --- */
+    .site-footer {
+      background: var(--secondary);
+      color: #9ca3af;
+      padding: 3rem 0;
+      margin-top: 4rem;
+      font-size: 0.9rem;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .socials a {
+      margin-right: 1rem;
+      color: white;
+    }
+    .socials a:hover { color: var(--primary); }
+
+    /* --- Modal --- */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(5px);
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    .modal img {
+      max-height: 90vh;
+      max-width: 90vw;
+      border-radius: 8px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 3rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* --- Responsive --- */
+    @media (max-width: 992px) {
+      .hero-text h2 { font-size: 2.5rem; }
+    }
+
+    @media (max-width: 768px) {
+      .main-nav {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        width: 80%;
+        height: calc(100vh - 70px);
+        background: white;
+        flex-direction: column;
+        padding: 2rem;
+        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+        transition: 0.4s;
+      }
+      .main-nav.active { right: 0; }
+      .hamburger { display: block; }
+      
+      .hero-grid, .about-card, .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .hero { padding: 3rem 0; text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-media { order: -1; }
+      .footer-row { flex-direction: column; gap: 1rem; text-align: center; }
+      
+      .brand h1 { font-size: 1rem; }
+      .brand .tagline { display: none; }
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Header -->
   <header class="site-header">
     <div class="container header-row">
       <div class="brand">
-        <img src="assets/logo.svg" alt="Emerald logo" class="logo" />
+        <!-- Icon Placeholder -->
+        <i data-lucide="hexagon" class="logo-icon"></i>
         <div>
           <h1>ایده گستران زمرد هوشمند</h1>
-          <p class="tagline">تولید تجهیزات الکترونیکی هوشمند و راهکارهای IoT</p>
+          <p class="tagline">پیشرو در راهکارهای IoT صنعتی</p>
         </div>
       </div>
 
-      <nav class="main-nav" aria-label="منوی اصلی">
-        <a href="#home">خانه</a>
-        <a href="#about">درباره</a>
+      <nav class="main-nav" id="mainNav">
+        <a href="#home" class="active">خانه</a>
+        <a href="#about">درباره ما</a>
         <a href="#products">محصولات</a>
         <a href="#gallery">گالری</a>
         <a href="#contact">تماس</a>
       </nav>
 
-      <button class="cta" onclick="location.href='#contact'">درخواست همکاری</button>
+      <div style="display: flex; gap:10px; align-items: center;">
+        <button class="btn btn-primary cta-btn" onclick="location.href='#contact'">همکاری با ما</button>
+        <button class="hamburger" id="menuToggle" aria-label="منو">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
     </div>
   </header>
 
+  <!-- Hero Section -->
   <section id="home" class="hero">
     <div class="container hero-grid">
       <div class="hero-text">
-        <h2>راهکارهای هوشمند، اتصال بی‌نهایت</h2>
-        <p>تولیدکننده تجهیزات IoT برای خانه، صنعت و کسب‌وکارها — قابل اعتماد، امن و مقیاس‌پذیر.</p>
+        <h2>اتصال هوشمند،<br><span>آینده‌ای روشن‌تر</span></h2>
+        <p>طراحی و تولید پیشرفته‌ترین تجهیزات اینترنت اشیاء برای صنایع، کشاورزی و شهرهای هوشمند. امنیت، سرعت و پایداری را با Emerald تجربه کنید.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#products">محصولات ما</a>
-          <a class="btn btn-outline" href="#gallery">مشاهده گالری</a>
+          <a class="btn btn-primary" href="#products">مشاهده محصولات <i data-lucide="arrow-left" size="18"></i></a>
+          <a class="btn btn-outline" href="#gallery">پروژه‌ها</a>
         </div>
       </div>
 
       <div class="hero-media">
-        <img src="assets/hero-iot.jpg" alt="IoT devices" class="cover" />
+        <!-- Image from Unsplash (Electronics/IoT) -->
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="IoT Technology Board" />
       </div>
     </div>
   </section>
 
   <main class="container">
 
-    <section id="about" class="section card">
-      <h3>درباره ما</h3>
-      <p>
-        ایده گستران زمرد هوشمند (Emerald) با تمرکز بر طراحی و تولید تجهیزات الکترونیکی هوشمند و راهکارهای اینترنت اشیاء،
-        از مرحله نمونه‌سازی تا تولید و استقرار در شبکه‌های محلی و ابری همراه شماست. سرعت در توسعه، امنیت داده و تجربه کاربری
-        از اولویت‌های ما هستند.
-      </p>
-      <ul class="features">
-        <li><strong>طراحی سخت‌افزار:</strong> بردهای سفارشی، سنسورها و گیت‌وی‌های صنعتی</li>
-        <li><strong>پلتفرم نرم‌افزاری:</strong> اتصال امن، مدیریت دستگاه و داشبورد آنالیتیکس</li>
-        <li><strong>پشتیبانی صنعتی:</strong> استقرار، نگهداشت و توسعه سفارشی</li>
-      </ul>
+    <!-- About Section -->
+    <section id="about" class="section">
+      <div class="about-card">
+        <div>
+          <h3>چرا زمرد هوشمند؟</h3>
+          <p>
+            تیم مهندسی Emerald با ترکیب دانش الکترونیک و نرم‌افزار، شکاف بین سخت‌افزار و کلاود را از بین می‌برد. ما راهکارهای End-to-End ارائه می‌دهیم؛ از طراحی PCB تا داشبورد مدیریتی.
+          </p>
+          <ul class="features-list">
+            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>سخت‌افزار سفارشی:</strong> طراحی بردهای چندلایه و بهینه</li>
+            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>امنیت داده:</strong> رمزنگاری سخت‌افزاری و TLS</li>
+            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>پشتیبانی صنعتی:</strong> گارانتی و خدمات پس از فروش ۲۴/۷</li>
+          </ul>
+        </div>
+        <div>
+           <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Engineers working" style="border-radius: 12px;" />
+        </div>
+      </div>
     </section>
 
+    <!-- Products Section -->
     <section id="products" class="section">
-      <h3>محصولات</h3>
+      <div class="section-header">
+        <h3>محصولات و راهکارها</h3>
+        <p>تجهیزات طراحی شده برای شرایط سخت صنعتی</p>
+      </div>
 
       <div class="product-grid">
-        <!-- card 1 -->
-        <article class="product card">
-          <img src="assets/product-1.jpg" alt="محصول گیت‌وی IoT" />
+        <!-- Product 1 -->
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1563770095125-84f2517962b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gateway" />
+          </div>
           <div class="product-body">
             <h4>گیت‌وی صنعتی Emerald-GW</h4>
-            <p>پشتیبانی از MQTT، LoRaWAN، Modbus و اتصال امن LTE/4G برای محیط‌های صنعتی.</p>
-            <div class="product-actions">
-              <a class="btn-sm" href="#">جزئیات</a>
-              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
+            <p>پشتیبانی از پروتکل‌های MQTT و Modbus با قابلیت اتصال 4G/LTE و پردازش لبه‌ای (Edge Computing).</p>
+            <div class="product-footer">
+              <span style="color: var(--primary-dark); font-weight:700;">موجود</span>
+              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
             </div>
           </div>
         </article>
 
-        <!-- card 2 -->
-        <article class="product card">
-          <img src="assets/product-2.jpg" alt="محصول سنسور" />
+        <!-- Product 2 -->
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smart Sensor" />
+          </div>
           <div class="product-body">
-            <h4>سنسور چند پارامتری Emerald-S</h4>
-            <p>اندازه‌گیری دما، رطوبت، کیفیت هوا و لرزش با مصرف پایین انرژی و ارتباط بی‌سیم.</p>
-            <div class="product-actions">
-              <a class="btn-sm" href="#">جزئیات</a>
-              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
+            <h4>سنسور هوشمند محیطی</h4>
+            <p>پایش دما، رطوبت و گازهای سمی با عمر باتری ۵ ساله و شبکه LoRaWAN.</p>
+            <div class="product-footer">
+              <span style="color: var(--primary-dark); font-weight:700;">سفارشی</span>
+              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
             </div>
           </div>
         </article>
 
-        <!-- card 3 -->
-        <article class="product card">
-          <img src="assets/product-3.jpg" alt="محصول کنترل" />
+        <!-- Product 3 -->
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Controller" />
+          </div>
           <div class="product-body">
-            <h4>کنترل‌کننده Edge-EM</h4>
-            <p>کنترل لبه‌ای با قابلیت اجرای کانتینر و پردازش در محل برای کاهش تأخیر و افزایش امنیت.</p>
-            <div class="product-actions">
-              <a class="btn-sm" href="#">جزئیات</a>
-              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
+            <h4>کنترلر هوشمند موتورخانه</h4>
+            <p>مدیریت انرژی و کنترل پمپ‌ها با الگوریتم‌های یادگیری ماشین جهت کاهش مصرف سوخت.</p>
+            <div class="product-footer">
+              <span style="color: var(--primary-dark); font-weight:700;">موجود</span>
+              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
             </div>
           </div>
         </article>
       </div>
     </section>
 
-    <section id="gallery" class="section card">
-      <h3>گالری تصاویر IoT</h3>
-      <p>نمونه‌تصاویر از محصولات، معماری سیستم و نمایش‌های کاربردی.</p>
+    <!-- Gallery Section -->
+    <section id="gallery" class="section">
+      <div class="section-header">
+        <h3>گالری پروژه‌ها</h3>
+        <p>نگاهی به خط تولید و پروژه‌های اجرایی</p>
+      </div>
 
       <div class="gallery-grid" id="galleryGrid">
-        <!-- تصاویر نمونه (با کلیک باز می‌شود) -->
-        <img src="assets/gallery-1.jpg" alt="IoT - gallery 1" data-full="assets/gallery-1-large.jpg" />
-        <img src="assets/gallery-2.jpg" alt="IoT - gallery 2" data-full="assets/gallery-2-large.jpg" />
-        <img src="assets/gallery-3.jpg" alt="IoT - gallery 3" data-full="assets/gallery-3-large.jpg" />
-        <img src="assets/gallery-4.jpg" alt="IoT - gallery 4" data-full="assets/gallery-4-large.jpg" />
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Factory Line" />
+          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Circuit Board" />
+          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Smart City" />
+          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Lab testing" />
+          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="section card contact-card">
-      <h3>تماس با ما</h3>
-      <p><strong>ایده گستران زمرد هوشمند (Emerald)</strong></p>
-      <p>ایمیل: <a href="mailto:info@emerald.example">info@emerald.example</a></p>
-      <p>تلفن: ۰۹۱۲۳۴۵۶۷۸۹</p>
-      <p>آدرس: تهران — برای تماس تجاری فرم را ارسال کنید.</p>
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+      <div class="contact-wrapper">
+        <div class="contact-info">
+          <h3>اطلاعات تماس</h3>
+          <p style="margin-bottom: 2rem; color: #d1d5db;">برای مشاوره رایگان و دریافت پیش‌فاکتور با ما در ارتباط باشید.</p>
+          
+          <div class="contact-detail">
+            <i data-lucide="map-pin"></i>
+            <span>تهران، پارک فناوری پردیس، ساختمان زمرد</span>
+          </div>
+          <div class="contact-detail">
+            <i data-lucide="phone"></i>
+            <span>۰۲۱-۸۸۸۸xxxx</span>
+          </div>
+          <div class="contact-detail">
+            <i data-lucide="mail"></i>
+            <a href="mailto:info@emerald-iot.ir">info@emerald-iot.ir</a>
+          </div>
+          
+          <div style="margin-top: 3rem;">
+            <h4 style="margin-bottom:1rem; color:white;">شبکه‌های اجتماعی</h4>
+            <div class="socials">
+              <a href="#"><i data-lucide="linkedin"></i></a>
+              <a href="#"><i data-lucide="instagram"></i></a>
+              <a href="#"><i data-lucide="twitter"></i></a>
+            </div>
+          </div>
+        </div>
 
-      <form class="contact-form" action="https://forms.google.com" method="get" target="_blank">
-        <input name="name" type="text" placeholder="نام و نام‌خانوادگی" required />
-        <input name="email" type="email" placeholder="ایمیل" required />
-        <textarea name="message" rows="4" placeholder="پیام شما..." required></textarea>
-        <button class="btn btn-primary" type="submit">ارسال درخواست</button>
-      </form>
+        <div class="contact-form-container">
+          <form action="#" method="POST">
+            <div class="form-group">
+              <label for="name" style="display:block; margin-bottom:0.5rem; font-weight:600;">نام و نام خانوادگی</label>
+              <input id="name" name="name" type="text" class="form-input" placeholder="مثال: علی رضایی" required />
+            </div>
+            <div class="form-group">
+              <label for="email" style="display:block; margin-bottom:0.5rem; font-weight:600;">ایمیل سازمانی</label>
+              <input id="email" name="email" type="email" class="form-input" placeholder="name@company.com" required />
+            </div>
+            <div class="form-group">
+              <label for="message" style="display:block; margin-bottom:0.5rem; font-weight:600;">پیام شما</label>
+              <textarea id="message" name="message" rows="4" class="form-input" placeholder="شرح پروژه یا درخواست..." required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit" style="width:100%;">ارسال پیام</button>
+          </form>
+        </div>
+      </div>
     </section>
 
   </main>
 
   <footer class="site-footer">
     <div class="container footer-row">
-      <p>© 2025 ایده گستران زمرد هوشمند — Emerald. کلیه حقوق محفوظ است.</p>
-      <div class="socials">
-        <a href="#" aria-label="LinkedIn">LinkedIn</a>
-        <a href="#" aria-label="Instagram">Instagram</a>
+      <p>© 2025 ایده گستران زمرد هوشمند. تمامی حقوق محفوظ است.</p>
+      <div style="display:flex; gap:1rem;">
+        <a href="#">قوانین و مقررات</a>
+        <a href="#">حریم خصوصی</a>
       </div>
     </div>
   </footer>
 
-  <!-- Modal برای گالری -->
+  <!-- Image Modal -->
   <div id="modal" class="modal" aria-hidden="true">
     <button class="modal-close" aria-label="بستن" onclick="closeModal()">×</button>
-    <img id="modalImg" src="" alt="تصویر بزرگ" />
+    <img id="modalImg" src="" alt="Full View" />
   </div>
 
   <script>
-    // گالری — بازکردن تصاویر در مودال
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Mobile Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    menuToggle.addEventListener('click', () => {
+      mainNav.classList.toggle('active');
+    });
+
+    // Close menu when clicking a link (Mobile)
+    document.querySelectorAll('.main-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        mainNav.classList.remove('active');
+      });
+    });
+
+    // Gallery Modal Logic
     const gallery = document.getElementById('galleryGrid');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
 
-    gallery?.addEventListener('click', (e) => {
-      const tgt = e.target;
-      if (tgt.tagName === 'IMG') {
-        const full = tgt.dataset.full || tgt.src;
-        modalImg.src = full;
+    gallery.addEventListener('click', (e) => {
+      // Handle click on the overlay or the image
+      const item = e.target.closest('.gallery-item');
+      if (item) {
+        const img = item.querySelector('img');
+        const fullSrc = img.getAttribute('data-full') || img.src;
+        modalImg.src = fullSrc;
         modal.style.display = 'flex';
         modal.setAttribute('aria-hidden', 'false');
       }
@@ -179,9 +769,34 @@
       modalImg.src = '';
     }
 
-    // بستن با Esc
+    modal.addEventListener('click', (e) => {
+      if(e.target === modal) closeModal();
+    });
+
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
+    });
+
+    // Navbar Active State on Scroll
+    const sections = document.querySelectorAll('section');
+    const navLi = document.querySelectorAll('nav.main-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= (sectionTop - 150)) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLi.forEach(li => {
+        li.classList.remove('active');
+        if (li.getAttribute('href').includes(current)) {
+          li.classList.add('active');
+        }
+      });
     });
   </script>
 </body>
