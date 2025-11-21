@@ -4,34 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نام شرکت شما</title>
-    <link rel="stylesheet" href="style.css"> </head>
+
+    <!-- فونت حرفه‌ای -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+</head>
+
 <body>
-    <header>
-        <h1>نام شرکت شما</h1>
-        <nav>
-            <a href="#about">معرفی شرکت</a>
-            <a href="#products">محصولات</a>
-        </nav>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">نام شرکت شما</h1>
+
+            <nav class="nav">
+                <a href="#about">معرفی شرکت</a>
+                <a href="#products">محصولات</a>
+                <a href="#contact">تماس با ما</a>
+            </nav>
+        </div>
     </header>
 
-    <main>
+    <section class="hero">
+        <h2>به کسب‌وکار ما خوش آمدید</h2>
+        <p>ارائه بهترین خدمات و محصولات با بالاترین کیفیت</p>
+    </section>
+
+    <main class="container">
+
         <section id="about" class="section">
             <h2>درباره ما</h2>
-            <p>اینجا متن جذاب معرفی شرکت شما قرار می‌گیرد. به تاریخچه، اهداف و ارزش‌های خود بپردازید...</p>
+            <p>
+                ما مجموعه‌ای تخصصی هستیم که با تکیه بر تجربه و خلاقیت، بهترین خدمات را به مشتریان خود ارائه می‌دهیم.
+            </p>
         </section>
 
         <section id="products" class="section">
             <h2>محصولات ما</h2>
-            <div class="product-item">
-                <h3>نام محصول ۱</h3>
-                <p>توضیح مختصر در مورد محصول ۱ و مزایای آن.</p>
-                <a href="**لینک گوگل فرم شما**" target="_blank" class="order-button">درخواست سفارش</a>
+
+            <div class="product-grid">
+
+                <div class="product-item">
+                    <h3>نام محصول ۱</h3>
+                    <p>توضیح مختصر در مورد محصول ۱ و مزایای آن.</p>
+                    <a href="https://forms.google.com" target="_blank" class="order-button">درخواست سفارش</a>
+                </div>
+
+                <div class="product-item">
+                    <h3>نام محصول ۲</h3>
+                    <p>توضیح مختصر درباره ویژگی‌ها و کاربردهای محصول ۲.</p>
+                    <a href="https://forms.google.com" target="_blank" class="order-button">درخواست سفارش</a>
+                </div>
+
             </div>
-            </section>
+        </section>
+
+        <section id="contact" class="section contact">
+            <h2>تماس با ما</h2>
+            <p>ایمیل: info@example.com</p>
+            <p>شماره تماس: 09123456789</p>
+        </section>
+
     </main>
 
-    <footer>
-        <p>&copy; 2025 نام شرکت شما. کلیه حقوق محفوظ است.</p>
+    <footer class="footer">
+        <p>&copy; 2025 نام شرکت شما — کلیه حقوق محفوظ است.</p>
     </footer>
 </body>
 </html>
