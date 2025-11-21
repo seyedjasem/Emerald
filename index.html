@@ -346,6 +346,114 @@
       font-size: 0.9rem;
     }
 
+    /* --- Fuel Tracker Section Styling (Re-designed) --- */
+    #fuel-tracker {
+      /* پس‌زمینه جدید و شکیل‌تر */
+      background: #e0f2f1; /* Light Teal background */
+      padding: 6rem 0;
+      position: relative;
+    }
+    #fuel-tracker .section-header h3 { color: var(--primary-dark); }
+    #fuel-tracker .section-header p { color: var(--text-muted); }
+    
+    .tracker-content-grid {
+      display: grid;
+      /* تغییر به دو ستون بزرگ برای محتوا و دکمه */
+      grid-template-columns: 1.5fr 1fr; 
+      gap: 3rem;
+      align-items: stretch; 
+    }
+
+    .tracker-details {
+      background-color: var(--bg-white);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+      border-right: 4px solid var(--primary);
+    }
+
+    .tracker-details h4 {
+      font-size: 1.6rem;
+      color: var(--secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .feature-icons-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .feature-icon-item {
+        background: #f0fdf4; /* Very light green background for features */
+        border: 1px solid #d1fae5;
+        padding: 1rem;
+        border-radius: 8px;
+        transition: transform 0.3s;
+    }
+
+    .feature-icon-item:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .feature-icon-item i {
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+        width: 30px;
+        height: 30px;
+    }
+    .feature-icon-item h5 {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        color: var(--primary-dark);
+    }
+    .feature-icon-item p {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+    }
+
+    .tracker-image-card {
+        background-color: var(--secondary);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .tracker-image-agri {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+        object-fit: cover;
+        border-radius: var(--radius);
+        opacity: 0.9;
+    }
+
+    .tracker-form-card {
+      background-color: var(--bg-white);
+      color: var(--text-main);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: center;
+    }
+    .tracker-form-card h4 {
+      color: var(--primary-dark);
+      margin-bottom: 1.5rem;
+      font-size: 1.3rem;
+      text-align: center;
+    }
+
     /* --- Gallery --- */
     .gallery-grid {
       display: grid;
@@ -474,6 +582,15 @@
     /* --- Responsive --- */
     @media (max-width: 992px) {
       .hero-text h2 { font-size: 2.5rem; }
+      .tracker-content-grid {
+        grid-template-columns: 1fr;
+      }
+      .tracker-image-card {
+        display: none; /* Hide image card on small screens to save space */
+      }
+      .tracker-content-grid {
+        grid-template-columns: 1fr; 
+      }
     }
 
     @media (max-width: 768px) {
@@ -503,6 +620,10 @@
       
       .brand h1 { font-size: 1rem; }
       .brand .tagline { display: none; }
+
+      .feature-icons-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
   <!-- --- پایان بخش CSS --- -->
@@ -525,6 +646,7 @@
         <a href="#home" class="active">خانه</a>
         <a href="#about">درباره ما</a>
         <a href="#products">محصولات</a>
+        <a href="#fuel-tracker">ردیاب سوخت</a>
         <a href="#gallery">گالری</a>
         <a href="#contact">تماس</a>
       </nav>
@@ -553,7 +675,7 @@
 
       <div class="hero-media">
         <!-- تصویر نماینده IoT -->
-        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="IoT Technology Board" />
+        <img src="https://images.unsplash.com/photo-1542831371-29b0f74f9d13?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=90" alt="صفحه مدار و فناوری IoT" />
       </div>
     </div>
   </section>
@@ -576,7 +698,7 @@
         </div>
         <div>
            <!-- تصویر مهندسی -->
-           <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Engineers working" style="border-radius: 12px;" />
+           <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="مهندسان در حال کار" style="border-radius: 12px;" />
         </div>
       </div>
     </section>
@@ -592,7 +714,7 @@
         <!-- محصول ۱: گیت‌وی صنعتی -->
         <article class="product-card">
           <div class="product-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1563770095125-84f2517962b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Gateway" />
+            <img src="https://images.unsplash.com/photo-1563770095125-84f2517962b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Gateway" />
           </div>
           <div class="product-body">
             <h4>گیت‌وی صنعتی Emerald-GW</h4>
@@ -607,7 +729,7 @@
         <!-- محصول ۲: سنسور هوشمند -->
         <article class="product-card">
           <div class="product-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Smart Sensor" />
+            <img src="https://images.unsplash.com/photo-1558002038-1091a166111c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Smart Sensor" />
           </div>
           <div class="product-body">
             <h4>سنسور هوشمند محیطی</h4>
@@ -622,7 +744,7 @@
         <!-- محصول ۳: کنترلر موتورخانه -->
         <article class="product-card">
           <div class="product-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Controller" />
+            <img src="https://images.unsplash.com/photo-1591488320449-011701bb6704?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Controller" />
           </div>
           <div class="product-body">
             <h4>کنترلر هوشمند موتورخانه</h4>
@@ -634,10 +756,10 @@
           </div>
         </article>
 
-        <!-- محصول ۴: ردیاب خودرو هوشمند (جدید) -->
+        <!-- محصول ۴: ردیاب خودرو هوشمند -->
         <article class="product-card">
           <div class="product-img-wrapper">
-            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Vehicle Tracker" />
+            <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Vehicle Tracker" />
           </div>
           <div class="product-body">
             <h4>ردیاب خودرو هوشمند</h4>
@@ -648,7 +770,116 @@
             </div>
           </div>
         </article>
+        
+        <!-- محصول ۵: کنتور هوشمند آب -->
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1579737197022-79cc3395b058?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Smart Water Meter" />
+          </div>
+          <div class="product-body">
+            <h4>کنتور هوشمند آب (AMI)</h4>
+            <p>اندازه‌گیری دقیق مصرف، تشخیص نشتی و ارسال داده‌ها از طریق شبکه موبایل برای مدیریت منابع آب.</p>
+            <div class="product-footer">
+              <span style="color: var(--primary-dark); font-weight:700;">جدید</span>
+              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- محصول ۶: پنل صنعتی HMI -->
+        <article class="product-card">
+          <div class="product-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1628151025514-6338b0c67e88?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Industrial HMI Panel" />
+          </div>
+          <div class="product-body">
+            <h4>پنل رابط کاربری صنعتی (HMI)</h4>
+            <p>صفحه لمسی مقاوم و پایدار، با سیستم‌عامل سفارشی لینوکس برای مانیتورینگ و کنترل خط تولید.</p>
+            <div class="product-footer">
+              <span style="color: var(--primary-dark); font-weight:700;">سفارشی</span>
+              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            </div>
+          </div>
+        </article>
       </div>
+    </section>
+
+    <!-- بخش ردیاب هوشمند سوخت (با طراحی جدید و حذف Traccar) -->
+    <section id="fuel-tracker">
+        <div class="container">
+            <div class="section-header">
+                <h3>سامانه جامع مدیریت هوشمند سوخت کشاورزی</h3>
+                <p>تجهیزات تأیید شده برای اتصال به سامانه جهاد کشاورزی و کنترل مصرف سوخت ماشین‌آلات سنگین</p>
+            </div>
+
+            <div class="tracker-content-grid">
+                
+                <!-- ستون اصلی اطلاعات و قابلیت‌ها -->
+                <div class="tracker-details">
+                    <p style="margin-bottom: 2rem; color: var(--text-muted); line-height: 1.8;">
+                        پروژه ردیاب سوخت، با تمرکز بر نیازهای سازمان جهاد کشاورزی و سیستم دولتی توزیع سوخت طراحی شده است. این سیستم با هدف نهایی کردن شفافیت و جلوگیری از انحراف سهمیه سوخت، توسط تیم Emerald با بالاترین استانداردها توسعه یافته است.
+                    </p>
+
+                    <h4>ویژگی‌های فنی ردیاب و سامانه Emerald</h4>
+                    <div class="feature-icons-grid">
+                        <div class="feature-icon-item">
+                            <i data-lucide="map-pin"></i>
+                            <h5>ردیابی لحظه‌ای و دقیق</h5>
+                            <p>مشاهده موقعیت جغرافیایی ماشین‌آلات (تراکتورها، کمباین‌ها) روی نقشه به‌صورت زنده و بدون تأخیر.</p>
+                        </div>
+                        <div class="feature-icon-item">
+                            <i data-lucide="fuel"></i>
+                            <h5>مانیتورینگ سنسور سوخت</h5>
+                            <p>گزارش میزان مصرف لحظه‌ای و کلی سوخت از طریق اتصال به سنسورهای دقیق و تأیید شده.</p>
+                        </div>
+                        <div class="feature-icon-item">
+                            <i data-lucide="history"></i>
+                            <h5>آرشیو مسیرهای پیموده شده</h5>
+                            <p>نگهداری کامل سوابق حرکت تا یک سال برای بازبینی، ممیزی و ارائه گزارش‌های دولتی.</p>
+                        </div>
+                        <div class="feature-icon-item">
+                            <i data-lucide="bell"></i>
+                            <h5>هشدارهای Geofence</h5>
+                            <p>دریافت هشدار فوری در صورت خروج وسیله از محدوده مجاز تعیین‌شده (Geofence) یا سرعت غیرمجاز.</p>
+                        </div>
+                        <div class="feature-icon-item">
+                            <i data-lucide="file-text"></i>
+                            <h5>گزارش‌دهی تخصصی</h5>
+                            <p>تولید گزارش‌های استاندارد مورد نیاز سازمان‌ها جهت تأیید عملکرد و مصرف سوخت.</p>
+                        </div>
+                        <div class="feature-icon-item">
+                            <i data-lucide="cpu"></i>
+                            <h5>پشتیبانی از پروتکل‌های سفارشی</h5>
+                            <p>قابلیت پیکربندی و ارسال داده‌های اختصاصی جهت سازگاری با سامانه‌های اطلاعاتی دولتی.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ستون درخواست و تصویر -->
+                <div class="tracker-image-card" style="background-color: #d1fae5; position: relative;">
+                    <!-- تصویر مرتبط با کشاورزی IoT -->
+                    <img src="https://images.unsplash.com/photo-1508672584501-c81881845a7c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=90" 
+                         alt="کشاورزی هوشمند و تراکتور مجهز به ردیاب" 
+                         class="tracker-image-agri" 
+                         style="border-radius: 0; filter: brightness(0.85);"/>
+                    
+                    <div class="tracker-form-card" style="position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 var(--radius) var(--radius); padding: 1.5rem; background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(5px);">
+                        <h4 style="color: var(--primary-dark);">ارسال درخواست رسمی و ثبت اطلاعات</h4>
+                        <p style="text-align: center; margin-bottom: 1.5rem; font-size: 0.9rem; color: var(--text-muted);">
+                            برای ثبت درخواست نهایی و شروع فرآیند نصب ردیاب، لطفاً روی دکمه زیر کلیک کنید.
+                        </p>
+                    
+                        <!-- دکمه درخواست (لینک به فرم گوگل) -->
+                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEp_55HQLxyWx1QknyFEp90vw3f-zELwL8FdTYFhKYruSjKg/viewform?usp=publish-editor" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           class="btn btn-primary" 
+                           style="width:100%; padding: 1.1rem; font-size: 1.1rem; border-radius: 8px; height: auto;">
+                            <i data-lucide="send" size="20"></i> ثبت درخواست ردیاب هوشمند
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- بخش گالری تصاویر -->
@@ -661,19 +892,19 @@
       <!-- گالری با قابلیت زوم (که توسط script.js مدیریت می‌شود) -->
       <div class="gallery-grid" id="galleryGrid">
         <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Factory Line" />
+          <img src="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1553406830-ef2513450d76?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Factory Line" />
           <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
         </div>
         <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Circuit Board" />
+          <img src="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1531297461136-82lwde8a29e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Circuit Board" />
           <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
         </div>
         <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Smart City" />
+          <img src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Smart City" />
           <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
         </div>
         <div class="gallery-item">
-          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" data-full="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Lab testing" />
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Lab testing" />
           <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
         </div>
       </div>
