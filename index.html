@@ -9,30 +9,34 @@
   <!-- فونت‌ها: استفاده از فونت Vazirmatn -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- آیکون‌ها: استفاده از کتابخانه Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Tailwind CSS is not explicitly loaded, relying on custom CSS and classes that mimic standard utility patterns -->
-  <!-- --- بخش CSS (استایل‌ها) --- -->
   <style>
     /* --- Variables & Reset --- */
     :root {
-      --primary: #10b981; /* Emerald 500 */
-      --primary-dark: #047857; /* Emerald 700 */
-      --secondary: #1f2937; /* Gray 800 */
-      --accent: #34d399; /* Emerald 400 */
+      --primary: #10b981;       /* Emerald 500 */
+      --primary-dark: #047857;  /* Emerald 700 */
+      --primary-light: #d1fae5; /* Emerald 100 */
+      --secondary: #1f2937;     /* Gray 800 */
+      --accent: #34d399;        /* Emerald 400 */
       --bg-light: #f9fafb;
       --bg-white: #ffffff;
       --text-main: #111827;
       --text-muted: #6b7280;
       --border: #e5e7eb;
+      
+      /* Shadows */
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-      --radius: 12px;
+      --shadow-glow: 0 0 15px rgba(16, 185, 129, 0.3);
+      
+      --radius: 16px;
       --container-width: 1200px;
+      --header-height: 80px;
     }
 
     * {
@@ -43,19 +47,21 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: var(--header-height);
     }
 
     body {
       font-family: 'Vazirmatn', sans-serif;
       background-color: var(--bg-light);
       color: var(--text-main);
-      line-height: 1.6;
+      line-height: 1.7;
       overflow-x: hidden;
     }
 
-    a { text-decoration: none; color: inherit; transition: 0.3s; }
+    a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
     ul { list-style: none; }
     img { max-width: 100%; display: block; }
+    button { font-family: inherit; }
 
     /* --- Utility Classes --- */
     .container {
@@ -69,10 +75,10 @@
       align-items: center;
       justify-content: center;
       padding: 0.75rem 1.5rem;
-      border-radius: 8px;
+      border-radius: 10px;
       font-weight: 600;
       cursor: pointer;
-      border: none;
+      border: 2px solid transparent;
       gap: 0.5rem;
       transition: all 0.3s ease;
     }
@@ -85,11 +91,12 @@
     .btn-primary:hover {
       background-color: var(--primary-dark);
       transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.23);
     }
 
     .btn-outline {
       background: transparent;
-      border: 2px solid var(--primary);
+      border-color: var(--primary);
       color: var(--primary);
     }
     .btn-outline:hover {
@@ -99,32 +106,54 @@
 
     .section-header {
       text-align: center;
-      margin-bottom: 3rem;
+      margin-bottom: 3.5rem;
     }
     .section-header h3 {
-      font-size: 2rem;
+      font-size: 2.25rem;
+      font-weight: 800;
       color: var(--secondary);
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      position: relative;
+      display: inline-block;
     }
+    /* خط زیر عنوان */
+    .section-header h3::after {
+        content: '';
+        display: block;
+        width: 50%;
+        height: 4px;
+        background: var(--primary);
+        margin: 0.5rem auto 0;
+        border-radius: 2px;
+    }
+
     .section-header p {
       color: var(--text-muted);
+      font-size: 1.1rem;
     }
 
     /* --- Header --- */
     .site-header {
-      background-color: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
       position: sticky;
       top: 0;
       z-index: 1000;
       border-bottom: 1px solid var(--border);
-      padding: 1rem 0;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      transition: box-shadow 0.3s;
+    }
+    .site-header.scrolled {
+        box-shadow: var(--shadow-md);
     }
 
     .header-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
+      width: 100%;
     }
 
     .brand {
@@ -135,12 +164,18 @@
 
     .logo-icon {
       color: var(--primary);
-      width: 40px;
-      height: 40px;
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 2px 4px rgba(16,185,129,0.3));
+    }
+
+    .brand-text {
+        display: flex;
+        flex-direction: column;
     }
 
     .brand h1 {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       font-weight: 800;
       color: var(--secondary);
       line-height: 1.2;
@@ -148,7 +183,7 @@
     .brand .tagline {
       font-size: 0.75rem;
       color: var(--text-muted);
-      font-weight: 400;
+      font-weight: 500;
     }
 
     .main-nav {
@@ -159,6 +194,7 @@
       font-weight: 500;
       color: var(--text-muted);
       position: relative;
+      padding: 0.5rem 0;
     }
     .main-nav a:hover, .main-nav a.active {
       color: var(--primary);
@@ -166,22 +202,20 @@
     .main-nav a::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       right: 0;
       width: 0;
-      height: 2px;
+      height: 2.5px;
       background: var(--primary);
-      transition: width 0.3s;
+      transition: width 0.3s ease-in-out;
+      border-radius: 2px;
     }
-    .main-nav a:hover::after {
+    .main-nav a:hover::after, .main-nav a.active::after {
       width: 100%;
     }
 
     .cta-btn {
-      display: none; /* Desktop only mostly */
-    }
-    @media(min-width: 768px) {
-      .cta-btn { display: inline-flex; }
+      display: inline-flex;
     }
 
     /* Mobile Menu Toggle */
@@ -191,35 +225,67 @@
       border: none;
       cursor: pointer;
       color: var(--secondary);
+      padding: 0.5rem;
     }
+    
+    /* Overlay for mobile menu */
+    .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 998;
+        display: none;
+        backdrop-filter: blur(2px);
+    }
+    .mobile-overlay.active { display: block; }
 
     /* --- Hero Section --- */
     .hero {
-      padding: 6rem 0;
-      background: radial-gradient(circle at top right, #ecfdf5, transparent);
+      padding: 4rem 0 6rem;
+      background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
       overflow: hidden;
+      position: relative;
+    }
+    /* پس‌زمینه دکوراتیو */
+    .hero::before {
+        content: '';
+        position: absolute;
+        top: -50px;
+        right: -50px;
+        width: 300px;
+        height: 300px;
+        background: var(--primary-light);
+        border-radius: 50%;
+        filter: blur(80px);
+        z-index: 0;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 4rem;
       align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
     .hero-text h2 {
-      font-size: 3rem;
-      font-weight: 800;
+      font-size: 3.5rem;
+      font-weight: 900;
       color: var(--secondary);
       margin-bottom: 1.5rem;
-      line-height: 1.2;
+      line-height: 1.15;
+      letter-spacing: -1px;
     }
     .hero-text h2 span {
       color: var(--primary);
+      background: -webkit-linear-gradient(45deg, var(--primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero-text p {
-      font-size: 1.125rem;
+      font-size: 1.25rem;
       color: var(--text-muted);
       margin-bottom: 2.5rem;
       max-width: 90%;
@@ -234,21 +300,22 @@
       position: relative;
     }
     .hero-media img {
-      border-radius: 20px;
+      border-radius: 24px;
       box-shadow: var(--shadow-lg);
-      transform: perspective(1000px) rotateY(-5deg);
-      transition: transform 0.5s;
+      /* افکت سه بعدی ملایم */
+      transform: perspective(1000px) rotateY(-5deg) rotateX(2deg);
+      transition: transform 0.5s ease-out;
       width: 100%;
       height: auto;
       object-fit: cover;
     }
     .hero-media:hover img {
-      transform: perspective(1000px) rotateY(0deg);
+      transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
     }
 
     /* --- About Section --- */
     .section {
-      padding: 5rem 0;
+      padding: 6rem 0;
     }
 
     .about-card {
@@ -264,18 +331,23 @@
     }
 
     .features-list {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
     }
     .features-list li {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 0.75rem;
       margin-bottom: 1rem;
       color: var(--text-main);
+      font-size: 1.05rem;
     }
     .check-icon {
       color: var(--primary);
-      min-width: 20px;
+      background: var(--primary-light);
+      border-radius: 50%;
+      padding: 4px;
+      width: 24px;
+      height: 24px;
     }
 
     /* --- Products --- */
@@ -290,29 +362,49 @@
       border-radius: var(--radius);
       overflow: hidden;
       border: 1px solid var(--border);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s ease;
       display: flex;
       flex-direction: column;
+      position: relative;
     }
 
     .product-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--primary-light);
     }
 
     .product-img-wrapper {
-      height: 220px;
+      height: 240px;
       overflow: hidden;
+      position: relative;
     }
     .product-img-wrapper img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.5s;
+      transition: transform 0.6s ease;
     }
     .product-card:hover .product-img-wrapper img {
-      transform: scale(1.05);
+      transform: scale(1.1);
     }
+    
+    /* برچسب وضعیت روی عکس */
+    .badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        background: rgba(255,255,255,0.9);
+        backdrop-filter: blur(4px);
+        box-shadow: var(--shadow-sm);
+    }
+    .badge.available { color: var(--primary-dark); }
+    .badge.new { color: #2563eb; background: #dbeafe; }
+    .badge.custom { color: #d97706; background: #fef3c7; }
 
     .product-body {
       padding: 1.5rem;
@@ -322,7 +414,7 @@
     }
 
     .product-body h4 {
-      font-size: 1.25rem;
+      font-size: 1.3rem;
       margin-bottom: 0.75rem;
       color: var(--secondary);
     }
@@ -332,51 +424,53 @@
       font-size: 0.95rem;
       margin-bottom: 1.5rem;
       flex-grow: 1;
+      line-height: 1.6;
     }
 
     .product-footer {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 1px solid var(--border);
+      margin-top: auto;
       padding-top: 1rem;
+      border-top: 1px solid var(--border);
     }
     .link-btn {
       color: var(--primary);
       font-weight: 600;
       font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
+    .link-btn:hover { gap: 8px; } /* انیمیشن کوچک فلش */
 
-    /* --- Fuel Tracker Section Styling (Re-designed) --- */
+    /* --- Fuel Tracker Section (Refined) --- */
     #fuel-tracker {
-      /* پس‌زمینه جدید و شکیل‌تر */
-      background: #e0f2f1; /* Light Teal background */
-      padding: 6rem 0;
+      background: linear-gradient(to bottom, #ecfdf5, #f0f9ff);
       position: relative;
+      padding: 6rem 0;
     }
-    #fuel-tracker .section-header h3 { color: var(--primary-dark); }
-    #fuel-tracker .section-header p { color: var(--text-muted); }
     
     .tracker-content-grid {
       display: grid;
-      /* تغییر به دو ستون بزرگ برای محتوا و دکمه */
-      grid-template-columns: 1.5fr 1fr; 
+      grid-template-columns: 1.4fr 1fr; 
       gap: 3rem;
       align-items: stretch; 
     }
 
     .tracker-details {
-      background-color: var(--bg-white);
+      background-color: rgba(255,255,255,0.8);
+      backdrop-filter: blur(5px);
       padding: 2.5rem;
       border-radius: var(--radius);
-      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
-      border-right: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--primary-light);
     }
 
     .tracker-details h4 {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       color: var(--secondary);
       margin-bottom: 1.5rem;
+      border-right: 4px solid var(--primary);
+      padding-right: 1rem;
     }
 
     .feature-icons-grid {
@@ -387,90 +481,87 @@
     }
 
     .feature-icon-item {
-        background: #f0fdf4; /* Very light green background for features */
-        border: 1px solid #d1fae5;
-        padding: 1rem;
-        border-radius: 8px;
-        transition: transform 0.3s;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        padding: 1.25rem;
+        border-radius: 12px;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .feature-icon-item:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-sm);
+        box-shadow: var(--shadow-md);
+        border-color: var(--primary);
     }
 
     .feature-icon-item i {
         color: var(--primary);
-        min-width: 30px;
-        height: 30px;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
+        width: 28px;
+        height: 28px;
     }
     .feature-icon-item h5 {
         font-size: 1rem;
         font-weight: 700;
-        margin-bottom: 0.25rem;
-        color: var(--primary-dark);
+        margin-bottom: 0.5rem;
+        color: var(--secondary);
     }
     .feature-icon-item p {
         font-size: 0.85rem;
         color: var(--text-muted);
+        line-height: 1.5;
     }
 
     .tracker-image-card {
-        background-color: #d1fae5;
+        background-color: var(--secondary);
         border-radius: var(--radius);
         overflow: hidden;
         box-shadow: var(--shadow-lg);
+        position: relative;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
     }
 
     .tracker-image-agri {
         width: 100%;
         height: 100%;
-        min-height: 300px;
+        min-height: 350px;
         object-fit: cover;
-        border-radius: 0;
-        opacity: 0.85;
+        opacity: 0.9;
     }
 
-    /* --- برجسته سازی کارت درخواست --- */
     .tracker-form-card {
-        /* تغییر استایل برای برجسته‌تر شدن */
-        background-color: var(--bg-white) !important;
-        border-top: 4px solid var(--accent); /* خط بالای سبز روشن */
-        box-shadow: 0 0 25px -5px rgba(0, 0, 0, 0.2); /* سایه قوی‌تر */
-        padding: 1.5rem;
-        text-align: center;
-    }
-    .tracker-form-card h4 {
-      color: var(--primary-dark);
-      margin-bottom: 1rem;
-      font-size: 1.3rem;
+      position: absolute;
+      bottom: 0; 
+      left: 0; 
+      right: 0; 
+      background: rgba(255, 255, 255, 0.95); 
+      backdrop-filter: blur(10px);
+      padding: 2rem;
+      border-radius: 20px 20px 0 0;
       text-align: center;
+      border-top: 3px solid var(--primary);
     }
 
     /* --- Gallery --- */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
     }
     .gallery-item {
       border-radius: var(--radius);
       overflow: hidden;
       cursor: pointer;
       position: relative;
-      height: 250px;
+      height: 260px;
+      box-shadow: var(--shadow-md);
     }
     .gallery-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s;
+      transition: transform 0.5s ease;
     }
     .gallery-item:hover img {
       transform: scale(1.1);
@@ -478,7 +569,7 @@
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.3);
+      background: rgba(0,0,0,0.4);
       opacity: 0;
       transition: 0.3s;
       display: flex;
@@ -489,6 +580,14 @@
     .gallery-item:hover .gallery-overlay {
       opacity: 1;
     }
+    .gallery-overlay i {
+        width: 48px;
+        height: 48px;
+        background: rgba(255,255,255,0.2);
+        padding: 10px;
+        border-radius: 50%;
+        backdrop-filter: blur(4px);
+    }
 
     /* --- Contact --- */
     .contact-wrapper {
@@ -498,17 +597,22 @@
       background: var(--bg-white);
       border-radius: var(--radius);
       overflow: hidden;
-      box-shadow: var(--shadow-md);
+      box-shadow: var(--shadow-lg);
     }
 
     .contact-info {
       background: var(--secondary);
       color: white;
       padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
-    .contact-info h3 { margin-bottom: 1.5rem; color: var(--primary); }
-    .contact-detail { margin-bottom: 1rem; display: flex; align-items: center; gap: 10px; }
-    .contact-detail a { color: #d1d5db; }
+    .contact-info h3 { margin-bottom: 1.5rem; color: var(--primary); font-size: 1.8rem; }
+    .contact-detail { margin-bottom: 1.5rem; display: flex; align-items: flex-start; gap: 12px; }
+    .contact-detail i { color: var(--primary); flex-shrink: 0; margin-top: 4px; }
+    .contact-detail span, .contact-detail a { color: #e5e7eb; font-size: 1rem; }
+    .contact-detail a:hover { color: var(--primary); }
 
     .contact-form-container {
       padding: 3rem;
@@ -516,38 +620,62 @@
     .form-group {
       margin-bottom: 1.5rem;
     }
+    .form-label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--secondary);
+    }
     .form-input {
       width: 100%;
-      padding: 0.875rem;
-      border: 1px solid var(--border);
-      border-radius: 8px;
+      padding: 0.875rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
       font-family: inherit;
+      font-size: 1rem;
       outline: none;
-      transition: border-color 0.3s;
+      transition: all 0.3s;
+      background-color: var(--bg-light);
     }
     .form-input:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+      background-color: #fff;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+    }
+    textarea.form-input {
+        resize: vertical;
+        min-height: 120px;
     }
 
     /* --- Footer --- */
     .site-footer {
-      background: var(--secondary);
+      background: #111827; /* Darker than secondary */
       color: #9ca3af;
-      padding: 3rem 0;
-      margin-top: 4rem;
+      padding: 4rem 0 2rem;
+      margin-top: 6rem;
       font-size: 0.9rem;
+      border-top: 4px solid var(--primary);
     }
     .footer-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+    .socials { display: flex; gap: 1rem; }
     .socials a {
-      margin-right: 1rem;
-      color: white;
+      color: #d1d5db;
+      transition: 0.3s;
+      background: rgba(255,255,255,0.05);
+      padding: 8px;
+      border-radius: 50%;
+      display: flex;
     }
-    .socials a:hover { color: var(--primary); }
+    .socials a:hover { 
+        color: var(--bg-white); 
+        background: var(--primary); 
+        transform: translateY(-3px);
+    }
 
     /* --- Modal --- */
     .modal {
@@ -555,366 +683,337 @@
       position: fixed;
       z-index: 2000;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(5px);
+      background: rgba(0,0,0,0.9);
+      backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
       padding: 2rem;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .modal.open {
+        display: flex;
+        opacity: 1;
     }
     .modal img {
-      max-height: 90vh;
+      max-height: 85vh;
       max-width: 90vw;
-      border-radius: 8px;
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255,255,255,0.1);
     }
     .modal-close {
       position: absolute;
       top: 20px;
       right: 30px;
       color: white;
-      font-size: 3rem;
-      background: none;
+      font-size: 2.5rem;
+      background: rgba(255,255,255,0.1);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
       border: none;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    .modal-close:hover {
+        background: rgba(255,255,255,0.3);
+        transform: rotate(90deg);
     }
 
     /* --- Responsive --- */
+    @media (max-width: 1024px) {
+        .hero-text h2 { font-size: 2.8rem; }
+        .tracker-content-grid { grid-template-columns: 1fr; }
+        .tracker-image-card { height: 400px; }
+    }
+
     @media (max-width: 992px) {
-      .hero-text h2 { font-size: 2.5rem; }
-      .tracker-content-grid {
-        grid-template-columns: 1fr;
-      }
-      .tracker-image-agri {
-        min-height: 250px;
-      }
-      /* در موبایل، فرم درخواست زیر تصویر قرار می‌گیرد */
-      .tracker-image-card {
-        border-radius: var(--radius);
-      }
-      .tracker-form-card {
-        border-radius: 0 0 var(--radius) var(--radius);
-        position: static !important;
-      }
+      .cta-btn { display: none; } /* دکمه هدر در تبلت مخفی شود */
     }
 
     @media (max-width: 768px) {
+      :root {
+          --header-height: 70px;
+      }
+      
       .main-nav {
         position: fixed;
-        top: 70px;
-        right: -100%;
-        width: 80%;
-        height: calc(100vh - 70px);
+        top: 0;
+        right: -100%; /* مخفی در ابتدا */
+        width: 80%; /* عرض منو */
+        max-width: 300px;
+        height: 100vh;
         background: white;
         flex-direction: column;
-        padding: 2rem;
-        box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-        transition: 0.4s;
+        padding: 6rem 2rem 2rem;
+        box-shadow: -5px 0 25px rgba(0,0,0,0.15);
+        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1001;
+        gap: 1.5rem;
       }
       .main-nav.active { right: 0; }
-      .hamburger { display: block; }
+
+      .main-nav a {
+          font-size: 1.1rem;
+          border-bottom: 1px solid var(--border);
+          padding-bottom: 0.5rem;
+          width: 100%;
+      }
+      .main-nav a::after { display: none; } /* حذف خط زیر متحرک در موبایل */
       
+      .hamburger { display: block; z-index: 1002; }
+      /* وقتی منو باز است، دکمه همبرگر باید روی منو باشد یا هندل شود، اینجا ساده نگه می‌داریم */
+
       .hero-grid, .about-card, .contact-wrapper {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 3rem;
       }
-      .hero { padding: 3rem 0; text-align: center; }
+      
+      .hero { padding: 2rem 0 4rem; text-align: center; }
+      .hero-text h2 { font-size: 2.2rem; margin-top: 1rem; }
       .hero-actions { justify-content: center; }
-      .hero-media { order: -1; }
-      .footer-row { flex-direction: column; gap: 1rem; text-align: center; }
+      .hero-media { order: -1; transform: none !important; } /* غیرفعال کردن افکت سه بعدی در موبایل */
+      .hero-media img { transform: none !important; }
+      
+      .footer-row { flex-direction: column; gap: 1.5rem; text-align: center; }
       
       .brand h1 { font-size: 1rem; }
       .brand .tagline { display: none; }
 
-      .feature-icons-grid {
-        grid-template-columns: 1fr;
-      }
+      .tracker-image-card { display: none; } /* در موبایل عکس ردیاب را حذف می‌کنیم تا اسکرول کمتر شود */
+      .tracker-details { border: none; padding: 1.5rem; }
+      
+      .about-card { padding: 1.5rem; }
+      .contact-form-container, .contact-info { padding: 2rem; }
     }
   </style>
-  <!-- --- پایان بخش CSS --- -->
 </head>
 <body>
 
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
   <!-- بخش هدر و منوی اصلی -->
-  <header class="site-header">
+  <header class="site-header" id="siteHeader">
     <div class="container header-row">
       <div class="brand">
-        <!-- آیکون لوگو -->
         <i data-lucide="hexagon" class="logo-icon"></i>
-        <div>
+        <div class="brand-text">
           <h1>ایده گستران زمرد هوشمند</h1>
           <p class="tagline">پیشرو در راهکارهای IoT صنعتی</p>
         </div>
       </div>
 
       <nav class="main-nav" id="mainNav">
-        <a href="#home" class="active">خانه</a>
-        <a href="#about">درباره ما</a>
-        <a href="#products">محصولات</a>
-        <a href="#fuel-tracker">ردیاب سوخت</a>
-        <a href="#gallery">گالری</a>
-        <a href="#contact">تماس</a>
+        <a href="#home" class="nav-link active">خانه</a>
+        <a href="#about" class="nav-link">درباره ما</a>
+        <a href="#products" class="nav-link">محصولات</a>
+        <a href="#fuel-tracker" class="nav-link">ردیاب سوخت</a>
+        <a href="#gallery" class="nav-link">گالری</a>
+        <a href="#contact" class="nav-link">تماس</a>
+        <!-- دکمه مخصوص داخل منوی موبایل -->
+        <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem; display: none;" class="mobile-only-cta">
+             <button class="btn btn-primary" style="width:100%" onclick="location.href='#contact'">همکاری با ما</button>
+        </div>
       </nav>
 
       <div style="display: flex; gap:10px; align-items: center;">
-        <button class="btn btn-primary cta-btn" onclick="location.href='#contact'">همکاری با ما</button>
-        <!-- دکمه منوی موبایل که توسط script.js فعال می‌شود -->
+        <button class="btn btn-primary cta-btn" onclick="location.href='#contact'">
+            همکاری با ما <i data-lucide="arrow-left" size="16"></i>
+        </button>
         <button class="hamburger" id="menuToggle" aria-label="منو">
-          <i data-lucide="menu"></i>
+          <i data-lucide="menu" size="28"></i>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- بخش اصلی (Hero Section) -->
-  <section id="home" class="hero">
-    <div class="container hero-grid">
-      <div class="hero-text">
-        <h2>اتصال هوشمند،<br><span>آینده‌ای روشن‌تر</span></h2>
-        <p>طراحی و تولید پیشرفته‌ترین تجهیزات اینترنت اشیاء برای صنایع، کشاورزی و شهرهای هوشمند. امنیت، سرعت و پایداری را با Emerald تجربه کنید.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="#products">مشاهده محصولات <i data-lucide="arrow-left" size="18"></i></a>
-          <a class="btn btn-outline" href="#gallery">پروژه‌ها</a>
+  <main>
+    <!-- بخش اصلی (Hero Section) -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h2>اتصال هوشمند،<br><span>آینده‌ای روشن‌تر</span></h2>
+          <p>طراحی و تولید پیشرفته‌ترین تجهیزات اینترنت اشیاء برای صنایع، کشاورزی و شهرهای هوشمند. امنیت، سرعت و پایداری را با Emerald تجربه کنید.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#products">مشاهده محصولات</a>
+            <a class="btn btn-outline" href="#gallery">پروژه‌ها</a>
+          </div>
+        </div>
+
+        <div class="hero-media">
+          <!-- تصویر جایگزین شده با لینک درخواستی کاربر -->
+          <img src="https://cdn.wikifarmer.com/images/detailed/2024/07/Internet-of-Things-IoT-Solutions-for-Boosting-Efficiency-and-Sustainability-in-Agriculture-.png" alt="IoT Solutions in Agriculture" />
         </div>
       </div>
-
-      <div class="hero-media">
-        <!-- تصویر نماینده IoT (بروز شده با جایگزین) -->
-        <img 
-          src="https://placehold.co/1200x800/10b981/ffffff?text=IoT+Control+Dashboard" 
-          alt="صفحه نمایش داده و کنترل صنعتی" 
-          onerror="this.onerror=null; this.src='https://placehold.co/1200x800/10b981/ffffff?text=Industrial+IoT'"
-        />
-      </div>
-    </div>
-  </section>
-
-  <main class="container">
+    </section>
 
     <!-- بخش درباره ما -->
     <section id="about" class="section">
-      <div class="about-card">
-        <div>
-          <h3>چرا زمرد هوشمند؟</h3>
-          <p>
-            تیم مهندسی Emerald با ترکیب دانش الکترونیک و نرم‌افزار، شکاف بین سخت‌افزار و کلاود را از بین می‌برد. ما راهکارهای End-to-End ارائه می‌دهیم؛ از طراحی PCB تا داشبورد مدیریتی.
-          </p>
-          <ul class="features-list">
-            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>سخت‌افزار سفارشی:</strong> طراحی بردهای چندلایه و بهینه</li>
-            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>امنیت داده:</strong> رمزنگاری سخت‌افزاری و TLS</li>
-            <li><i data-lucide="check-circle" class="check-icon"></i> <strong>پشتیبانی صنعتی:</strong> گارانتی و خدمات پس از فروش ۲۴/۷</li>
-          </ul>
-        </div>
-        <div>
-           <!-- تصویر مهندسی (بروز شده با جایگزین) -->
-           <img 
-            src="https://placehold.co/800x600/1f2937/ffffff?text=Engineer+Working+on+PCB" 
-            alt="مهندس در حال بررسی مدار چاپی" 
-            style="border-radius: 12px;" 
-            onerror="this.onerror=null; this.src='https://placehold.co/800x600/1f2937/ffffff?text=Engineering+%26+Design'"
-           />
+      <div class="container">
+        <div class="about-card">
+            <div>
+            <div style="margin-bottom: 1rem;">
+                <span style="color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">درباره ما</span>
+                <h3 style="font-size: 2rem; color: var(--secondary); margin-top: 0.5rem;">چرا زمرد هوشمند؟</h3>
+            </div>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+                تیم مهندسی Emerald با ترکیب دانش الکترونیک و نرم‌افزار، شکاف بین سخت‌افزار و کلاود را از بین می‌برد. ما راهکارهای End-to-End ارائه می‌دهیم؛ از طراحی PCB تا داشبورد مدیریتی.
+            </p>
+            <ul class="features-list">
+                <li><i data-lucide="check" class="check-icon"></i> <strong>سخت‌افزار سفارشی:</strong> طراحی بردهای چندلایه و بهینه</li>
+                <li><i data-lucide="shield-check" class="check-icon"></i> <strong>امنیت داده:</strong> رمزنگاری سخت‌افزاری و TLS</li>
+                <li><i data-lucide="clock" class="check-icon"></i> <strong>پشتیبانی صنعتی:</strong> گارانتی و خدمات پس از فروش ۲۴/۷</li>
+            </ul>
+            </div>
+            <div style="position: relative;">
+            <!-- تصویر اصلاح شده: مهندسی الکترونیک -->
+            <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Engineering Team" style="border-radius: 16px; box-shadow: var(--shadow-md);" />
+            <!-- المنت تزئینی -->
+            <div style="position: absolute; bottom: -20px; right: -20px; background: white; padding: 1rem; border-radius: 12px; box-shadow: var(--shadow-lg); display: flex; gap: 10px; align-items: center;">
+                <div style="background: var(--primary-light); color: var(--primary); padding: 8px; border-radius: 8px;"><i data-lucide="users"></i></div>
+                <div>
+                    <div style="font-weight: 800; font-size: 1.2rem; line-height: 1;">+۵۰۰</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted);">مشتری راضی</div>
+                </div>
+            </div>
+            </div>
         </div>
       </div>
     </section>
 
     <!-- بخش محصولات -->
     <section id="products" class="section">
-      <div class="section-header">
-        <h3>محصولات و راهکارها</h3>
-        <p>تجهیزات طراحی شده برای شرایط سخت صنعتی</p>
-      </div>
+      <div class="container">
+        <div class="section-header">
+            <h3>محصولات و راهکارها</h3>
+            <p>تجهیزات طراحی شده برای شرایط سخت صنعتی</p>
+        </div>
 
-      <div class="product-grid">
-        <!-- محصول ۱: گیت‌وی صنعتی (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/059669/ffffff?text=Industrial+Gateway" 
-              alt="جعبه اتصال صنعتی (Industrial Gateway)" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/059669/ffffff?text=GW'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>گیت‌وی صنعتی Emerald-GW</h4>
-            <p>پشتیبانی از پروتکل‌های MQTT و Modbus با قابلیت اتصال 4G/LTE و پردازش لبه‌ای (Edge Computing).</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">موجود</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+        <div class="product-grid">
+            <!-- محصول ۱: گیت‌وی -->
+            <article class="product-card">
+            <div class="product-img-wrapper">
+                <span class="badge available">موجود</span>
+                <!-- تصویر اصلاح شده -->
+                <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Industrial Gateway" />
             </div>
-          </div>
-        </article>
+            <div class="product-body">
+                <h4>گیت‌وی صنعتی Emerald-GW</h4>
+                <p>پشتیبانی از پروتکل‌های MQTT و Modbus با قابلیت اتصال 4G/LTE و پردازش لبه‌ای (Edge Computing).</p>
+                <div class="product-footer">
+                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                </div>
+            </div>
+            </article>
 
-        <!-- محصول ۲: سنسور هوشمند (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/10b981/1f2937?text=Smart+Sensor" 
-              alt="سنسور هوشمند کوچک صنعتی" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/10b981/1f2937?text=Sensor'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>سنسور هوشمند محیطی</h4>
-            <p>پایش دما، رطوبت و گازهای سمی با عمر باتری ۵ ساله و شبکه LoRaWAN.</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">سفارشی</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            <!-- محصول ۲: سنسور -->
+            <article class="product-card">
+            <div class="product-img-wrapper">
+                <span class="badge custom">سفارشی</span>
+                <!-- تصویر اصلاح شده -->
+                <img src="https://images.unsplash.com/photo-1513828742140-ccaa28f3eda0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Smart Sensor" />
             </div>
-          </div>
-        </article>
+            <div class="product-body">
+                <h4>سنسور هوشمند محیطی</h4>
+                <p>پایش دما، رطوبت و گازهای سمی با عمر باتری ۵ ساله و شبکه LoRaWAN.</p>
+                <div class="product-footer">
+                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                </div>
+            </div>
+            </article>
 
-        <!-- محصول ۳: کنترلر موتورخانه (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/047857/ffffff?text=Motor+Control" 
-              alt="مانیتورینگ SCADA در اتاق کنترل" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/047857/ffffff?text=Control+Panel'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>کنترلر هوشمند موتورخانه</h4>
-            <p>مدیریت انرژی و کنترل پمپ‌ها با الگوریتم‌های یادگیری ماشین جهت کاهش مصرف سوخت.</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">موجود</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            <!-- محصول ۳: کنترلر -->
+            <article class="product-card">
+            <div class="product-img-wrapper">
+                <span class="badge available">موجود</span>
+                <!-- تصویر اصلاح شده -->
+                <img src="https://images.unsplash.com/photo-1580584126903-c17d41830450?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Industrial Controller" />
             </div>
-          </div>
-        </article>
+            <div class="product-body">
+                <h4>کنترلر هوشمند موتورخانه</h4>
+                <p>مدیریت انرژی و کنترل پمپ‌ها با الگوریتم‌های یادگیری ماشین جهت کاهش مصرف سوخت.</p>
+                <div class="product-footer">
+                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                </div>
+            </div>
+            </article>
 
-        <!-- محصول ۴: ردیاب خودرو هوشمند (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/4b5563/ffffff?text=Smart+Vehicle+Tracker" 
-              alt="ردیاب GPS تله‌متری" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/4b5563/ffffff?text=Tracker'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>ردیاب خودرو هوشمند</h4>
-            <p>ردیابی لحظه‌ای (GPS/GLONASS)، خاموش کردن خودرو از راه دور، هشدار سرقت و آنالیز رفتار راننده.</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">جدید</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            <!-- محصول ۴: ردیاب -->
+            <article class="product-card">
+            <div class="product-img-wrapper">
+                <span class="badge new">جدید</span>
+                <!-- تصویر اصلاح شده -->
+                <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" alt="Vehicle Tracking" />
             </div>
-          </div>
-        </article>
-        
-        <!-- محصول ۵: کنتور هوشمند آب (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/34d399/111827?text=Smart+Water+Meter" 
-              alt="نمایشگر کنتور هوشمند آب" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/34d399/111827?text=Water+AMI'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>کنتور هوشمند آب (AMI)</h4>
-            <p>اندازه‌گیری دقیق مصرف، تشخیص نشتی و ارسال داده‌ها از طریق شبکه موبایل برای مدیریت منابع آب.</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">جدید</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
+            <div class="product-body">
+                <h4>ردیاب خودرو هوشمند</h4>
+                <p>ردیابی لحظه‌ای (GPS/GLONASS)، خاموش کردن خودرو از راه دور و آنالیز رفتار راننده.</p>
+                <div class="product-footer">
+                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                </div>
             </div>
-          </div>
-        </article>
-
-        <!-- محصول ۶: پنل صنعتی HMI (بروز شده با جایگزین) -->
-        <article class="product-card">
-          <div class="product-img-wrapper">
-            <img 
-              src="https://placehold.co/600x440/065f46/ffffff?text=HMI+Panel" 
-              alt="پنل HMI صنعتی در حال کار" 
-              onerror="this.onerror=null; this.src='https://placehold.co/600x440/065f46/ffffff?text=HMI'"
-            />
-          </div>
-          <div class="product-body">
-            <h4>پنل رابط کاربری صنعتی (HMI)</h4>
-            <p>صفحه لمسی مقاوم و پایدار، با سیستم‌عامل سفارشی لینوکس برای مانیتورینگ و کنترل خط تولید.</p>
-            <div class="product-footer">
-              <span style="color: var(--primary-dark); font-weight:700;">سفارشی</span>
-              <a class="link-btn" href="#">جزئیات فنی &larr;</a>
-            </div>
-          </div>
-        </article>
+            </article>
+        </div>
       </div>
     </section>
 
-    <!-- بخش ردیاب هوشمند سوخت (با تصویر بروز شده با جایگزین) -->
+    <!-- بخش ردیاب هوشمند سوخت -->
     <section id="fuel-tracker">
         <div class="container">
             <div class="section-header">
-                <h3>سامانه جامع مدیریت هوشمند سوخت کشاورزی</h3>
-                <p>تجهیزات تأیید شده برای اتصال به سامانه جهاد کشاورزی و کنترل مصرف سوخت ماشین‌آلات سنگین</p>
+                <h3>سامانه مدیریت هوشمند سوخت کشاورزی</h3>
+                <p>اتصال به سامانه جهاد کشاورزی و کنترل مصرف سوخت ماشین‌آلات سنگین</p>
             </div>
 
             <div class="tracker-content-grid">
-                
-                <!-- ستون اصلی اطلاعات و قابلیت‌ها -->
+                <!-- ستون اطلاعات -->
                 <div class="tracker-details">
-                    <p style="margin-bottom: 2rem; color: var(--text-muted); line-height: 1.8;">
-                        پروژه ردیاب سوخت، با تمرکز بر نیازهای سازمان جهاد کشاورزی و سیستم دولتی توزیع سوخت طراحی شده است. این سیستم با هدف نهایی کردن شفافیت و جلوگیری از انحراف سهمیه سوخت، توسط تیم Emerald با بالاترین استانداردها توسعه یافته است.
+                    <p style="margin-bottom: 2rem; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
+                        این سیستم جهت ایجاد شفافیت و جلوگیری از انحراف سهمیه سوخت، با بالاترین استانداردهای صنعتی طراحی شده است.
                     </p>
 
-                    <h4>ویژگی‌های فنی ردیاب و سامانه Emerald</h4>
                     <div class="feature-icons-grid">
                         <div class="feature-icon-item">
                             <i data-lucide="map-pin"></i>
-                            <h5>ردیابی لحظه‌ای و دقیق</h5>
-                            <p>مشاهده موقعیت جغرافیایی ماشین‌آلات (تراکتورها، کمباین‌ها) روی نقشه به‌صورت زنده و بدون تأخیر.</p>
+                            <h5>ردیابی لحظه‌ای</h5>
+                            <p>مشاهده موقعیت جغرافیایی ماشین‌آلات روی نقشه.</p>
                         </div>
                         <div class="feature-icon-item">
                             <i data-lucide="fuel"></i>
-                            <h5>مانیتورینگ سنسور سوخت</h5>
-                            <p>گزارش میزان مصرف لحظه‌ای و کلی سوخت از طریق اتصال به سنسورهای دقیق و تأیید شده.</p>
+                            <h5>سنسور سوخت</h5>
+                            <p>گزارش دقیق میزان مصرف لحظه‌ای و کلی.</p>
                         </div>
                         <div class="feature-icon-item">
                             <i data-lucide="history"></i>
-                            <h5>آرشیو مسیرهای پیموده شده</h5>
-                            <p>نگهداری کامل سوابق حرکت تا یک سال برای بازبینی، ممیزی و ارائه گزارش‌های دولتی.</p>
-                        </div>
-                        <div class="feature-icon-item">
-                            <i data-lucide="bell"></i>
-                            <h5>هشدارهای Geofence</h5>
-                            <p>دریافت هشدار فوری در صورت خروج وسیله از محدوده مجاز تعیین‌شده (Geofence) یا سرعت غیرمجاز.</p>
+                            <h5>آرشیو مسیرها</h5>
+                            <p>نگهداری سوابق حرکت تا یک سال.</p>
                         </div>
                         <div class="feature-icon-item">
                             <i data-lucide="file-text"></i>
-                            <h5>گزارش‌دهی تخصصی</h5>
-                            <p>تولید گزارش‌های استاندارد مورد نیاز سازمان‌ها جهت تأیید عملکرد و مصرف سوخت.</p>
-                        </div>
-                        <div class="feature-icon-item">
-                            <i data-lucide="cpu"></i>
-                            <h5>پشتیبانی از پروتکل‌های سفارشی</h5>
-                            <p>قابلیت پیکربندی و ارسال داده‌های اختصاصی جهت سازگاری با سامانه‌های اطلاعاتی دولتی.</p>
+                            <h5>گزارش‌های دولتی</h5>
+                            <p>تولید گزارش‌های استاندارد مورد نیاز سازمان‌ها.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ستون تصویر و درخواست -->
-                <div class="tracker-image-card" style="position: relative;">
-                    <!-- تصویر مرتبط با کشاورزی IoT (بروز شده با جایگزین) -->
-                    <img 
-                        src="https://placehold.co/1200x800/15803d/ffffff?text=Smart+Agriculture+Tracker" 
-                        alt="تراکتور پیشرفته در حال کار در مزرعه" 
-                        class="tracker-image-agri"
-                        onerror="this.onerror=null; this.src='https://placehold.co/1200x800/15803d/ffffff?text=Agriculture+GPS'"
-                    />
+                <!-- ستون تصویر و فرم -->
+                <div class="tracker-image-card">
+                    <!-- تصویر اصلاح شده: تراکتور در مزرعه -->
+                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=90" 
+                         alt="Smart Farming Tractor" 
+                         class="tracker-image-agri"/>
                     
-                    <!-- کارت درخواست (برجسته شده) -->
-                    <div class="tracker-form-card" style="position: absolute; bottom: 0; left: 0; right: 0; border-radius: 0 0 var(--radius) var(--radius);">
-                        <h4 style="color: var(--primary-dark); font-size: 1.5rem;">ثبت درخواست ردیاب و مشاوره</h4>
-                        <p style="text-align: center; margin-bottom: 1.5rem; font-size: 1rem; color: var(--text-muted); font-weight: 500;">
-                            برای شروع فرایند تأمین و نصب تجهیزات، از طریق فرم زیر اقدام فرمایید.
+                    <div class="tracker-form-card">
+                        <h4 style="color: var(--primary-dark); margin-bottom: 0.5rem;">ثبت نام سامانه سوخت</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+                            جهت شروع فرآیند نصب ردیاب، درخواست خود را ثبت کنید.
                         </p>
-                    
-                        <!-- دکمه درخواست (لینک به فرم گوگل) -->
-                        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfEp_55HQLxyWx1QknyFEp90vw3f-zELwL8FdTYFhKYruSjKg/viewform?usp=publish-editor" 
-                           target="_blank" 
-                           rel="noopener noreferrer"
-                           class="btn btn-primary" 
-                           style="width:100%; padding: 1.1rem; font-size: 1.1rem; border-radius: 10px; height: auto;">
-                            <i data-lucide="send" size="20"></i> ثبت درخواست رسمی
+                        <a href="#" class="btn btn-primary" style="width:100%; padding: 1rem;">
+                            <i data-lucide="send" size="18"></i> ثبت درخواست آنلاین
                         </a>
                     </div>
                 </div>
@@ -922,162 +1021,162 @@
         </div>
     </section>
 
-    <!-- بخش گالری تصاویر (بروز شده با جایگزین) -->
+    <!-- بخش گالری تصاویر -->
     <section id="gallery" class="section">
-      <div class="section-header">
-        <h3>گالری پروژه‌ها</h3>
-        <p>نگاهی به خط تولید و پروژه‌های اجرایی</p>
-      </div>
+      <div class="container">
+        <div class="section-header">
+            <h3>گالری پروژه‌ها</h3>
+            <p>نگاهی به خط تولید و پروژه‌های اجرایی</p>
+        </div>
 
-      <!-- گالری با قابلیت زوم (که توسط script.js مدیریت می‌شود) -->
-      <div class="gallery-grid" id="galleryGrid">
-        <div class="gallery-item">
-          <!-- SMT Line -->
-          <img 
-            src="https://placehold.co/600x500/059669/ffffff?text=SMT+Assembly+Line" 
-            data-full="https://placehold.co/1200x1000/059669/ffffff?text=SMT+Assembly+Line" 
-            alt="خط تولید SMT و مونتاژ قطعات" 
-            onerror="this.onerror=null; this.src='https://placehold.co/600x500/059669/ffffff?text=Line'"
-          />
-          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
-        </div>
-        <div class="gallery-item">
-          <!-- Engineer Testing PCB -->
-          <img 
-            src="https://placehold.co/600x500/10b981/1f2937?text=PCB+Testing" 
-            data-full="https://placehold.co/1200x1000/10b981/1f2937?text=PCB+Testing" 
-            alt="تست عملکرد مدار چاپی" 
-            onerror="this.onerror=null; this.src='https://placehold.co/600x500/10b981/1f2937?text=Test'"
-          />
-          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
-        </div>
-        <div class="gallery-item">
-          <!-- Industrial Robot -->
-          <img 
-            src="https://placehold.co/600x500/047857/ffffff?text=Industrial+Robotics" 
-            data-full="https://placehold.co/1200x1000/047857/ffffff?text=Industrial+Robotics" 
-            alt="ربات صنعتی در خط تولید" 
-            onerror="this.onerror=null; this.src='https://placehold.co/600x500/047857/ffffff?text=Robot'"
-          />
-          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
-        </div>
-        <div class="gallery-item">
-          <!-- Data Dashboard -->
-          <img 
-            src="https://placehold.co/600x500/1f2937/ffffff?text=IoT+Data+Dashboard" 
-            data-full="https://placehold.co/1200x1000/1f2937/ffffff?text=IoT+Data+Dashboard" 
-            alt="مرکز داده و سرورهای IoT" 
-            onerror="this.onerror=null; this.src='https://placehold.co/600x500/1f2937/ffffff?text=Dashboard'"
-          />
-          <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+        <div class="gallery-grid" id="galleryGrid">
+            <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="High Tech Chip" />
+            <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+            </div>
+            <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Smart Home" />
+            <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+            </div>
+            <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Network" />
+            <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+            </div>
+            <div class="gallery-item">
+            <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=90" data-full="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=90" alt="Lab testing" />
+            <div class="gallery-overlay"><i data-lucide="zoom-in"></i></div>
+            </div>
         </div>
       </div>
     </section>
 
     <!-- بخش تماس با ما -->
     <section id="contact" class="section">
-      <div class="contact-wrapper">
-        <div class="contact-info">
-          <h3>اطلاعات تماس</h3>
-          <p style="margin-bottom: 2rem; color: #d1d5db;">برای مشاوره رایگان و دریافت پیش‌فاکتور با ما در ارتباط باشید.</p>
-          
-          <div class="contact-detail">
-            <i data-lucide="map-pin"></i>
-            <span>خوزستان، اهواز، پارک علم و فناوری</span>
-          </div>
-          <div class="contact-detail">
-            <i data-lucide="phone"></i>
-            <span>۰۶۱-۳۳۳۳xxxx</span>
-          </div>
-          <div class="contact-detail">
-            <i data-lucide="mail"></i>
-            <a href="mailto:info@emerald-iot.ir">info@emerald-iot.ir</a>
-          </div>
-          
-          <div style="margin-top: 3rem;">
-            <h4 style="margin-bottom:1rem; color:white;">شبکه‌های اجتماعی</h4>
-            <div class="socials">
-              <a href="#"><i data-lucide="linkedin"></i></a>
-              <a href="#"><i data-lucide="instagram"></i></a>
-              <a href="#"><i data-lucide="twitter"></i></a>
+      <div class="container">
+        <div class="contact-wrapper">
+            <div class="contact-info">
+            <div>
+                <h3>ارتباط با ما</h3>
+                <p style="margin-bottom: 2rem; color: #e5e7eb; line-height:1.6;">
+                    برای مشاوره رایگان در زمینه هوشمندسازی صنعتی و دریافت پیش‌فاکتور با کارشناسان ما تماس بگیرید.
+                </p>
+                
+                <div class="contact-detail">
+                    <i data-lucide="map-pin"></i>
+                    <span>خوزستان، اهواز، پارک علم و فناوری، ساختمان مرکزی</span>
+                </div>
+                <div class="contact-detail">
+                    <i data-lucide="phone"></i>
+                    <span>۰۶۱-۳۳۳۳xxxx</span>
+                </div>
+                <div class="contact-detail">
+                    <i data-lucide="mail"></i>
+                    <a href="mailto:info@emerald-iot.ir">info@emerald-iot.ir</a>
+                </div>
             </div>
-          </div>
-        </div>
+            
+            <div style="margin-top: 2rem;">
+                <h4 style="margin-bottom:1rem; color:white; font-size: 1.1rem;">ما را دنبال کنید</h4>
+                <div class="socials">
+                <a href="#"><i data-lucide="linkedin" size="20"></i></a>
+                <a href="#"><i data-lucide="instagram" size="20"></i></a>
+                <a href="#"><i data-lucide="twitter" size="20"></i></a>
+                </div>
+            </div>
+            </div>
 
-        <div class="contact-form-container">
-          <form action="#" method="POST">
-            <div class="form-group">
-              <label for="name" style="display:block; margin-bottom:0.5rem; font-weight:600;">نام و نام خانوادگی</label>
-              <input id="name" name="name" type="text" class="form-input" placeholder="مثال: علی رضایی" required />
+            <div class="contact-form-container">
+            <h3 style="color: var(--secondary); margin-bottom: 1.5rem; font-size: 1.5rem;">ارسال پیام</h3>
+            <form action="#" method="POST">
+                <div class="form-group">
+                <label for="name" class="form-label">نام و نام خانوادگی</label>
+                <input id="name" name="name" type="text" class="form-input" placeholder="مثال: علی رضایی" required />
+                </div>
+                <div class="form-group">
+                <label for="email" class="form-label">ایمیل / شماره تماس</label>
+                <input id="email" name="email" type="text" class="form-input" placeholder="name@company.com" required />
+                </div>
+                <div class="form-group">
+                <label for="message" class="form-label">متن پیام</label>
+                <textarea id="message" name="message" class="form-input" placeholder="توضیحات پروژه یا درخواست..." required></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit" style="width:100%;">ارسال پیام</button>
+            </form>
             </div>
-            <div class="form-group">
-              <label for="email" style="display:block; margin-bottom:0.5rem; font-weight:600;">ایمیل سازمانی</label>
-              <input id="email" name="email" type="email" class="form-input" placeholder="name@company.com" required />
-            </div>
-            <div class="form-group">
-              <label for="message" style="display:block; margin-bottom:0.5rem; font-weight:600;">پیام شما</label>
-              <textarea id="message" name="message" rows="4" class="form-input" placeholder="شرح پروژه یا درخواست..." required></textarea>
-            </div>
-            <button class="btn btn-primary" type="submit" style="width:100%;">ارسال پیام</button>
-          </form>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- فوتر (پایین صفحه) -->
+  <!-- فوتر -->
   <footer class="site-footer">
     <div class="container footer-row">
-      <p>© 2025 ایده گستران زمرد هوشمند. تمامی حقوق محفوظ است.</p>
-      <div style="display:flex; gap:1rem;">
+      <p>© ۲۰۲۵ ایده گستران زمرد هوشمند. تمامی حقوق محفوظ است.</p>
+      <div style="display:flex; gap:1.5rem;">
         <a href="#">قوانین و مقررات</a>
         <a href="#">حریم خصوصی</a>
+        <a href="#">سوالات متداول</a>
       </div>
     </div>
   </footer>
 
-  <!-- مدال (Modal) برای نمایش بزرگتر عکس‌ها در گالری -->
+  <!-- مدال گالری -->
   <div id="modal" class="modal" aria-hidden="true">
-    <button class="modal-close" aria-label="بستن" onclick="closeModal()">×</button>
+    <button class="modal-close" aria-label="بستن" onclick="closeModal()">
+        <i data-lucide="x"></i>
+    </button>
     <img id="modalImg" src="" alt="Full View" />
   </div>
 
-  <!-- --- بخش JavaScript (تعاملات) --- -->
   <script>
-    // Initialize Lucide Icons
-    // این تابع باید بعد از لود شدن اسکریپت Lucide اجرا شود
+    // 1. Initialize Icons
     document.addEventListener('DOMContentLoaded', () => {
         if (typeof lucide !== 'undefined') {
             lucide.createIcons();
         }
     });
 
-    // Mobile Menu Toggle
+    // 2. Mobile Menu & Overlay Logic
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
+    const overlay = document.getElementById('mobileOverlay');
+    const body = document.body;
 
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener('click', () => {
+    function toggleMenu() {
         mainNav.classList.toggle('active');
-      });
-
-      // Close menu when clicking a link (Mobile)
-      document.querySelectorAll('.main-nav a').forEach(link => {
-        link.addEventListener('click', () => {
-          mainNav.classList.remove('active');
-        });
-      });
+        overlay.classList.toggle('active');
+        // جلوگیری از اسکرول صفحه وقتی منو باز است
+        if (mainNav.classList.contains('active')) {
+            body.style.overflow = 'hidden';
+        } else {
+            body.style.overflow = '';
+        }
     }
 
-    // Gallery Modal Logic
+    if (menuToggle) {
+      menuToggle.addEventListener('click', toggleMenu);
+      overlay.addEventListener('click', toggleMenu); // بستن با کلیک روی Overlay
+    }
+
+    // بستن منو با کلیک روی لینک‌ها
+    document.querySelectorAll('.main-nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (mainNav.classList.contains('active')) toggleMenu();
+      });
+    });
+
+    // 3. Gallery Modal
     const gallery = document.getElementById('galleryGrid');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
 
     function closeModal() {
       if (modal) {
-        modal.style.display = 'none';
+        modal.classList.remove('open');
+        setTimeout(() => {
+            modal.style.display = 'none';
+        }, 300); // صبر برای انیمیشن
         modal.setAttribute('aria-hidden', 'true');
         modalImg.src = '';
       }
@@ -1085,55 +1184,61 @@
 
     if (gallery) {
       gallery.addEventListener('click', (e) => {
-        // Handle click on the overlay or the image
         const item = e.target.closest('.gallery-item');
         if (item) {
           const img = item.querySelector('img');
-          // از data-full برای آدرس عکس با کیفیت بالاتر استفاده می‌شود
           const fullSrc = img.getAttribute('data-full') || img.src; 
           modalImg.src = fullSrc;
           modal.style.display = 'flex';
+          // Small delay to allow display:flex to apply before opacity transition
+          setTimeout(() => modal.classList.add('open'), 10);
           modal.setAttribute('aria-hidden', 'false');
         }
       });
     }
 
     if (modal) {
-      // بستن مدال با کلیک روی پس‌زمینه
       modal.addEventListener('click', (e) => {
         if(e.target === modal) closeModal();
       });
     }
 
-    // بستن مدال با دکمه Esc
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') closeModal();
     });
 
-    // Navbar Active State on Scroll
+    // 4. Navbar Scroll Effect & Spy
+    const header = document.getElementById('siteHeader');
     const sections = document.querySelectorAll('section');
-    const navLi = document.querySelectorAll('nav.main-nav a');
+    const navLinks = document.querySelectorAll('.main-nav a.nav-link');
 
     window.addEventListener('scroll', () => {
+      // Header Shadow effect
+      if (window.scrollY > 50) {
+          header.classList.add('scrolled');
+      } else {
+          header.classList.remove('scrolled');
+      }
+
+      // Scroll Spy
       let current = '';
       sections.forEach(section => {
         const sectionTop = section.offsetTop;
-        // از یک آفست (150px) برای بهتر شدن تجربه اسکرول استفاده می‌کنیم
+        const sectionHeight = section.clientHeight;
+        // فرمول دقیق‌تر برای تشخیص بخش فعال
         if (scrollY >= (sectionTop - 150)) { 
           current = section.getAttribute('id');
         }
       });
 
-      navLi.forEach(li => {
-        li.classList.remove('active');
-        // بررسی می‌کند که لینک ناوبری به بخش فعلی اسکرول شده اشاره کند
-        if (li.getAttribute('href').includes(current)) {
-          li.classList.add('active');
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').includes(current)) {
+          link.classList.add('active');
         }
       });
     });
   </script>
-  <!-- --- پایان بخش JavaScript --- -->
 
 </body>
 </html>
