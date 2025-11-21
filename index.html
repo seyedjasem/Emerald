@@ -32,6 +32,7 @@
       --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
       --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
       --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
       --shadow-glow: 0 0 15px rgba(16, 185, 129, 0.3);
       
       --radius: 16px;
@@ -442,106 +443,176 @@
     }
     .link-btn:hover { gap: 8px; } /* انیمیشن کوچک فلش */
 
-    /* --- Fuel Tracker Section (Refined) --- */
+    /* --- Fuel Tracker Section (Professional Redesign) --- */
     #fuel-tracker {
-      background: linear-gradient(to bottom, #ecfdf5, #f0f9ff);
+      /* پس‌زمینه گرادینت ملایم برای تمایز از بخش‌های دیگر */
+      background: linear-gradient(180deg, #f0fdfa 0%, #ffffff 100%);
       position: relative;
-      padding: 6rem 0;
+      padding: 7rem 0;
+      overflow: hidden;
+    }
+
+    /* دکوراسیون پس‌زمینه */
+    #fuel-tracker::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--primary-light), transparent);
     }
     
     .tracker-content-grid {
       display: grid;
-      grid-template-columns: 1.4fr 1fr; 
-      gap: 3rem;
-      align-items: stretch; 
+      /* تقسیم‌بندی نامتقارن برای تمرکز روی تصویر و فرم */
+      grid-template-columns: 1.1fr 1.3fr; 
+      gap: 4rem;
+      align-items: center; 
     }
 
+    /* ستون اطلاعات (چپ) */
     .tracker-details {
-      background-color: rgba(255,255,255,0.8);
-      backdrop-filter: blur(5px);
-      padding: 2.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      border: 1px solid var(--primary-light);
+      /* حذف بک‌گراند کارت برای ادغام بهتر با صفحه */
+      padding-left: 1rem;
     }
 
     .tracker-details h4 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 800;
       color: var(--secondary);
       margin-bottom: 1.5rem;
-      border-right: 4px solid var(--primary);
-      padding-right: 1rem;
+      line-height: 1.3;
     }
 
     .feature-icons-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(2, 1fr); /* دو ستون منظم */
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 3rem;
     }
 
     .feature-icon-item {
         background: #ffffff;
-        border: 1px solid #e5e7eb;
-        padding: 1.25rem;
-        border-radius: 12px;
-        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid rgba(229, 231, 235, 0.5);
+        padding: 1.5rem;
+        border-radius: 16px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
     .feature-icon-item:hover {
         transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
-        border-color: var(--primary);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary-light);
     }
 
-    .feature-icon-item i {
-        color: var(--primary);
-        margin-bottom: 0.75rem;
-        width: 28px;
-        height: 28px;
+    .icon-box {
+        background: var(--primary-light);
+        color: var(--primary-dark);
+        width: 48px;
+        height: 48px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
     }
+
     .feature-icon-item h5 {
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: 700;
         margin-bottom: 0.5rem;
         color: var(--secondary);
     }
     .feature-icon-item p {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
         color: var(--text-muted);
-        line-height: 1.5;
+        line-height: 1.6;
     }
 
-    .tracker-image-card {
-        background-color: var(--secondary);
-        border-radius: var(--radius);
-        overflow: hidden;
-        box-shadow: var(--shadow-lg);
+    /* ستون تصویر و فرم (راست) */
+    .tracker-image-container {
         position: relative;
-        display: flex;
-        flex-direction: column;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: var(--shadow-xl);
+        /* نسبت تصویر */
+        aspect-ratio: 4/3; 
+        isolation: isolate; /* برای مدیریت z-index */
     }
 
-    .tracker-image-agri {
+    .tracker-image-bg {
         width: 100%;
         height: 100%;
-        min-height: 350px;
         object-fit: cover;
-        opacity: 0.9;
+        transition: transform 0.7s ease;
+    }
+    
+    /* افکت زوم ملایم روی عکس */
+    .tracker-image-container:hover .tracker-image-bg {
+        transform: scale(1.03);
     }
 
+    /* لایه گرادینت روی عکس برای خوانایی بهتر */
+    .tracker-overlay-gradient {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top, rgba(4, 120, 87, 0.85) 0%, rgba(0,0,0,0) 60%);
+        z-index: 1;
+    }
+
+    /* کارت شناور فرم (Glassmorphism) */
     .tracker-form-card {
       position: absolute;
-      bottom: 0; 
-      left: 0; 
-      right: 0; 
-      background: rgba(255, 255, 255, 0.95); 
-      backdrop-filter: blur(10px);
-      padding: 2rem;
-      border-radius: 20px 20px 0 0;
-      text-align: center;
-      border-top: 3px solid var(--primary);
+      bottom: 2rem; 
+      left: 2rem; 
+      right: 2rem; 
+      background: rgba(255, 255, 255, 0.15); /* شفافیت شیشه‌ای */
+      backdrop-filter: blur(12px); /* تار کردن پشت زمینه */
+      -webkit-backdrop-filter: blur(12px);
+      padding: 1.5rem 2rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      gap: 1rem;
     }
+    
+    .tracker-cta-text h4 {
+        color: white;
+        font-size: 1.1rem;
+        margin-bottom: 0.25rem;
+        font-weight: 700;
+    }
+    .tracker-cta-text p {
+        color: rgba(255,255,255,0.9);
+        font-size: 0.85rem;
+        margin: 0;
+    }
+
+    .tracker-btn {
+        background: white;
+        color: var(--primary-dark);
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 700;
+        white-space: nowrap;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        transition: all 0.3s;
+    }
+    .tracker-btn:hover {
+        background: #ecfdf5;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
 
     /* --- Gallery --- */
     .gallery-grid {
@@ -727,8 +798,12 @@
     /* --- Responsive --- */
     @media (max-width: 1024px) {
         .hero-text h2 { font-size: 2.8rem; }
-        .tracker-content-grid { grid-template-columns: 1fr; }
-        .tracker-image-card { height: 400px; }
+        .tracker-content-grid { grid-template-columns: 1fr; gap: 3rem; }
+        .feature-icons-grid { grid-template-columns: 1fr 1fr; }
+        .tracker-image-container { 
+            height: 450px; 
+            aspect-ratio: auto;
+        }
     }
 
     @media (max-width: 992px) {
@@ -784,8 +859,18 @@
       .brand h1 { font-size: 1rem; }
       .brand .tagline { display: none; }
 
-      .tracker-image-card { display: none; } /* در موبایل عکس ردیاب را حذف می‌کنیم تا اسکرول کمتر شود */
-      .tracker-details { border: none; padding: 1.5rem; }
+      /* Responsive Updates for Fuel Tracker */
+      .tracker-image-container { height: 350px; }
+      .tracker-form-card { 
+          flex-direction: column; 
+          align-items: stretch; 
+          text-align: center;
+          gap: 1rem;
+          left: 1rem; right: 1rem; bottom: 1rem;
+          padding: 1.25rem;
+      }
+      .tracker-btn { width: 100%; }
+      .feature-icons-grid { grid-template-columns: 1fr; }
       
       .about-card { padding: 1.5rem; }
       .contact-form-container, .contact-info { padding: 2rem; }
@@ -961,59 +1046,63 @@
       </div>
     </section>
 
-    <!-- بخش ردیاب هوشمند سوخت -->
+    <!-- بخش ردیاب هوشمند سوخت (طراحی جدید UI/UX) -->
     <section id="fuel-tracker">
         <div class="container">
             <div class="section-header">
                 <h3>سامانه مدیریت هوشمند سوخت کشاورزی</h3>
-                <p>اتصال به سامانه جهاد کشاورزی و کنترل مصرف سوخت ماشین‌آلات سنگین</p>
+                <p>اتصال امن به سامانه جهاد کشاورزی و مانیتورینگ مصرف سوخت</p>
             </div>
 
             <div class="tracker-content-grid">
-                <!-- ستون اطلاعات -->
+                <!-- ستون اطلاعات (راست) -->
                 <div class="tracker-details">
                     <p style="margin-bottom: 2rem; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
-                        این سیستم جهت ایجاد شفافیت و جلوگیری از انحراف سهمیه سوخت، با بالاترین استانداردهای صنعتی طراحی شده است.
+                        این سامانه راهکاری جامع جهت ایجاد شفافیت در مصرف سوخت و جلوگیری از قاچاق است. با بهره‌گیری از سنسورهای دقیق التراسونیک و ردیاب‌های ماهواره‌ای، مدیریت ناوگان کشاورزی را متحول کنید.
                     </p>
 
                     <div class="feature-icons-grid">
                         <div class="feature-icon-item">
-                            <i data-lucide="map-pin"></i>
-                            <h5>ردیابی لحظه‌ای</h5>
-                            <p>مشاهده موقعیت جغرافیایی ماشین‌آلات روی نقشه.</p>
+                            <div class="icon-box"><i data-lucide="map-pin"></i></div>
+                            <h5>ردیابی لحظه‌ای (Live GPS)</h5>
+                            <p>مشاهده دقیق موقعیت مکانی و مسیر حرکت تراکتورها روی نقشه.</p>
                         </div>
                         <div class="feature-icon-item">
-                            <i data-lucide="fuel"></i>
-                            <h5>سنسور سوخت</h5>
-                            <p>گزارش دقیق میزان مصرف لحظه‌ای و کلی.</p>
+                            <div class="icon-box"><i data-lucide="fuel"></i></div>
+                            <h5>سنسور سطح سوخت</h5>
+                            <p>دقت اندازه‌گیری ۹۹.۵٪ با نمودار مصرف لحظه‌ای.</p>
                         </div>
                         <div class="feature-icon-item">
-                            <i data-lucide="history"></i>
-                            <h5>آرشیو مسیرها</h5>
-                            <p>نگهداری سوابق حرکت تا یک سال.</p>
+                            <div class="icon-box"><i data-lucide="shield"></i></div>
+                            <h5>امنیت سخت‌افزاری</h5>
+                            <p>ضد دستکاری (Tamper-proof) و مقاوم در برابر نویز.</p>
                         </div>
                         <div class="feature-icon-item">
-                            <i data-lucide="file-text"></i>
-                            <h5>گزارش‌های دولتی</h5>
-                            <p>تولید گزارش‌های استاندارد مورد نیاز سازمان‌ها.</p>
+                            <div class="icon-box"><i data-lucide="file-check"></i></div>
+                            <h5>تاییدیه جهاد کشاورزی</h5>
+                            <p>ارسال خودکار گزارش کارکرد برای دریافت سهمیه.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ستون تصویر و فرم -->
-                <div class="tracker-image-card">
-                    <!-- تصویر اصلاح شده: تراکتور در مزرعه -->
-                    <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=90" 
-                         alt="Smart Farming Tractor" 
-                         class="tracker-image-agri"/>
+                <!-- ستون تصویر و فرم (چپ - با طراحی Glassmorphism) -->
+                <div class="tracker-image-container">
+                    <!-- تصویر جدید درخواستی -->
+                    <img src="https://ismg-cdn.nyc3.cdn.digitaloceanspaces.com/blogs/when-hackers-meet-tractors-surprising-roles-in-iot-security-showcase_image-3-p-3769.jpg" 
+                         alt="Smart Tractor IoT Security" 
+                         class="tracker-image-bg"/>
                     
+                    <!-- لایه سایه پایین عکس -->
+                    <div class="tracker-overlay-gradient"></div>
+
+                    <!-- کارت فرم شناور -->
                     <div class="tracker-form-card">
-                        <h4 style="color: var(--primary-dark); margin-bottom: 0.5rem;">ثبت نام سامانه سوخت</h4>
-                        <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-                            جهت شروع فرآیند نصب ردیاب، درخواست خود را ثبت کنید.
-                        </p>
-                        <a href="#" class="btn btn-primary" style="width:100%; padding: 1rem;">
-                            <i data-lucide="send" size="18"></i> ثبت درخواست آنلاین
+                        <div class="tracker-cta-text">
+                            <h4>ثبت نام و دریافت تجهیزات</h4>
+                            <p>مشاوره رایگان و نصب در محل</p>
+                        </div>
+                        <a href="#" class="btn tracker-btn">
+                             ثبت درخواست آنلاین <i data-lucide="arrow-left" size="18" style="margin-right:5px; vertical-align:middle;"></i>
                         </a>
                     </div>
                 </div>
