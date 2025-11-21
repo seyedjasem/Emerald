@@ -1,72 +1,188 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نام شرکت شما</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ایده گستران زمرد هوشمند — Emerald</title>
 
-    <!-- فونت حرفه‌ای -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <header class="header">
-        <div class="container">
-            <h1 class="logo">نام شرکت شما</h1>
-
-            <nav class="nav">
-                <a href="#about">معرفی شرکت</a>
-                <a href="#products">محصولات</a>
-                <a href="#contact">تماس با ما</a>
-            </nav>
+  <header class="site-header">
+    <div class="container header-row">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="Emerald logo" class="logo" />
+        <div>
+          <h1>ایده گستران زمرد هوشمند</h1>
+          <p class="tagline">تولید تجهیزات الکترونیکی هوشمند و راهکارهای IoT</p>
         </div>
-    </header>
+      </div>
 
-    <section class="hero">
-        <h2>به کسب‌وکار ما خوش آمدید</h2>
-        <p>ارائه بهترین خدمات و محصولات با بالاترین کیفیت</p>
+      <nav class="main-nav" aria-label="منوی اصلی">
+        <a href="#home">خانه</a>
+        <a href="#about">درباره</a>
+        <a href="#products">محصولات</a>
+        <a href="#gallery">گالری</a>
+        <a href="#contact">تماس</a>
+      </nav>
+
+      <button class="cta" onclick="location.href='#contact'">درخواست همکاری</button>
+    </div>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <h2>راهکارهای هوشمند، اتصال بی‌نهایت</h2>
+        <p>تولیدکننده تجهیزات IoT برای خانه، صنعت و کسب‌وکارها — قابل اعتماد، امن و مقیاس‌پذیر.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#products">محصولات ما</a>
+          <a class="btn btn-outline" href="#gallery">مشاهده گالری</a>
+        </div>
+      </div>
+
+      <div class="hero-media">
+        <img src="assets/hero-iot.jpg" alt="IoT devices" class="cover" />
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <section id="about" class="section card">
+      <h3>درباره ما</h3>
+      <p>
+        ایده گستران زمرد هوشمند (Emerald) با تمرکز بر طراحی و تولید تجهیزات الکترونیکی هوشمند و راهکارهای اینترنت اشیاء،
+        از مرحله نمونه‌سازی تا تولید و استقرار در شبکه‌های محلی و ابری همراه شماست. سرعت در توسعه، امنیت داده و تجربه کاربری
+        از اولویت‌های ما هستند.
+      </p>
+      <ul class="features">
+        <li><strong>طراحی سخت‌افزار:</strong> بردهای سفارشی، سنسورها و گیت‌وی‌های صنعتی</li>
+        <li><strong>پلتفرم نرم‌افزاری:</strong> اتصال امن، مدیریت دستگاه و داشبورد آنالیتیکس</li>
+        <li><strong>پشتیبانی صنعتی:</strong> استقرار، نگهداشت و توسعه سفارشی</li>
+      </ul>
     </section>
 
-    <main class="container">
+    <section id="products" class="section">
+      <h3>محصولات</h3>
 
-        <section id="about" class="section">
-            <h2>درباره ما</h2>
-            <p>
-                ما مجموعه‌ای تخصصی هستیم که با تکیه بر تجربه و خلاقیت، بهترین خدمات را به مشتریان خود ارائه می‌دهیم.
-            </p>
-        </section>
-
-        <section id="products" class="section">
-            <h2>محصولات ما</h2>
-
-            <div class="product-grid">
-
-                <div class="product-item">
-                    <h3>نام محصول ۱</h3>
-                    <p>توضیح مختصر در مورد محصول ۱ و مزایای آن.</p>
-                    <a href="https://forms.google.com" target="_blank" class="order-button">درخواست سفارش</a>
-                </div>
-
-                <div class="product-item">
-                    <h3>نام محصول ۲</h3>
-                    <p>توضیح مختصر درباره ویژگی‌ها و کاربردهای محصول ۲.</p>
-                    <a href="https://forms.google.com" target="_blank" class="order-button">درخواست سفارش</a>
-                </div>
-
+      <div class="product-grid">
+        <!-- card 1 -->
+        <article class="product card">
+          <img src="assets/product-1.jpg" alt="محصول گیت‌وی IoT" />
+          <div class="product-body">
+            <h4>گیت‌وی صنعتی Emerald-GW</h4>
+            <p>پشتیبانی از MQTT، LoRaWAN، Modbus و اتصال امن LTE/4G برای محیط‌های صنعتی.</p>
+            <div class="product-actions">
+              <a class="btn-sm" href="#">جزئیات</a>
+              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
             </div>
-        </section>
+          </div>
+        </article>
 
-        <section id="contact" class="section contact">
-            <h2>تماس با ما</h2>
-            <p>ایمیل: info@example.com</p>
-            <p>شماره تماس: 09123456789</p>
-        </section>
+        <!-- card 2 -->
+        <article class="product card">
+          <img src="assets/product-2.jpg" alt="محصول سنسور" />
+          <div class="product-body">
+            <h4>سنسور چند پارامتری Emerald-S</h4>
+            <p>اندازه‌گیری دما، رطوبت، کیفیت هوا و لرزش با مصرف پایین انرژی و ارتباط بی‌سیم.</p>
+            <div class="product-actions">
+              <a class="btn-sm" href="#">جزئیات</a>
+              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
+            </div>
+          </div>
+        </article>
 
-    </main>
+        <!-- card 3 -->
+        <article class="product card">
+          <img src="assets/product-3.jpg" alt="محصول کنترل" />
+          <div class="product-body">
+            <h4>کنترل‌کننده Edge-EM</h4>
+            <p>کنترل لبه‌ای با قابلیت اجرای کانتینر و پردازش در محل برای کاهش تأخیر و افزایش امنیت.</p>
+            <div class="product-actions">
+              <a class="btn-sm" href="#">جزئیات</a>
+              <a class="btn-sm btn-primary" href="https://forms.google.com" target="_blank">درخواست نمونه</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
 
-    <footer class="footer">
-        <p>&copy; 2025 نام شرکت شما — کلیه حقوق محفوظ است.</p>
-    </footer>
+    <section id="gallery" class="section card">
+      <h3>گالری تصاویر IoT</h3>
+      <p>نمونه‌تصاویر از محصولات، معماری سیستم و نمایش‌های کاربردی.</p>
+
+      <div class="gallery-grid" id="galleryGrid">
+        <!-- تصاویر نمونه (با کلیک باز می‌شود) -->
+        <img src="assets/gallery-1.jpg" alt="IoT - gallery 1" data-full="assets/gallery-1-large.jpg" />
+        <img src="assets/gallery-2.jpg" alt="IoT - gallery 2" data-full="assets/gallery-2-large.jpg" />
+        <img src="assets/gallery-3.jpg" alt="IoT - gallery 3" data-full="assets/gallery-3-large.jpg" />
+        <img src="assets/gallery-4.jpg" alt="IoT - gallery 4" data-full="assets/gallery-4-large.jpg" />
+      </div>
+    </section>
+
+    <section id="contact" class="section card contact-card">
+      <h3>تماس با ما</h3>
+      <p><strong>ایده گستران زمرد هوشمند (Emerald)</strong></p>
+      <p>ایمیل: <a href="mailto:info@emerald.example">info@emerald.example</a></p>
+      <p>تلفن: ۰۹۱۲۳۴۵۶۷۸۹</p>
+      <p>آدرس: تهران — برای تماس تجاری فرم را ارسال کنید.</p>
+
+      <form class="contact-form" action="https://forms.google.com" method="get" target="_blank">
+        <input name="name" type="text" placeholder="نام و نام‌خانوادگی" required />
+        <input name="email" type="email" placeholder="ایمیل" required />
+        <textarea name="message" rows="4" placeholder="پیام شما..." required></textarea>
+        <button class="btn btn-primary" type="submit">ارسال درخواست</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <p>© 2025 ایده گستران زمرد هوشمند — Emerald. کلیه حقوق محفوظ است.</p>
+      <div class="socials">
+        <a href="#" aria-label="LinkedIn">LinkedIn</a>
+        <a href="#" aria-label="Instagram">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal برای گالری -->
+  <div id="modal" class="modal" aria-hidden="true">
+    <button class="modal-close" aria-label="بستن" onclick="closeModal()">×</button>
+    <img id="modalImg" src="" alt="تصویر بزرگ" />
+  </div>
+
+  <script>
+    // گالری — بازکردن تصاویر در مودال
+    const gallery = document.getElementById('galleryGrid');
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+
+    gallery?.addEventListener('click', (e) => {
+      const tgt = e.target;
+      if (tgt.tagName === 'IMG') {
+        const full = tgt.dataset.full || tgt.src;
+        modalImg.src = full;
+        modal.style.display = 'flex';
+        modal.setAttribute('aria-hidden', 'false');
+      }
+    });
+
+    function closeModal() {
+      modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
+      modalImg.src = '';
+    }
+
+    // بستن با Esc
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  </script>
 </body>
 </html>
