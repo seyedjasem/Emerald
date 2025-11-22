@@ -724,7 +724,7 @@
       background: #111827; /* Darker than secondary */
       color: #9ca3af;
       padding: 4rem 0 2rem;
-      margin-top: 6rem;
+      margin-top: 0;
       font-size: 0.9rem;
       border-top: 4px solid var(--primary);
     }
@@ -795,85 +795,214 @@
         transform: rotate(90deg);
     }
 
+    /* --- Bank Card & Toast --- */
+    .bank-card-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    
+    .mellat-card {
+      width: 100%;
+      max-width: 420px;
+      height: 260px;
+      /* رنگ روشن‌تر قرمز بانک ملت */
+      background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+      border-radius: 20px;
+      padding: 25px;
+      color: white;
+      box-shadow: 0 20px 40px -10px rgba(225, 29, 72, 0.4);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .mellat-card::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+        pointer-events: none;
+    }
+
+    .card-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .bank-name {
+        font-weight: 800;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .card-chip {
+        width: 50px;
+        height: 35px;
+        background: linear-gradient(135deg, #fcd34d, #d97706);
+        border-radius: 6px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    }
+    .chip-part {
+        position: absolute;
+        top: 50%; left: 0; right: 0; height: 1px; background: rgba(0,0,0,0.2);
+    }
+    .chip-part::before {
+        content:''; position: absolute; top: -17px; left: 50%; width: 1px; height: 35px; background: rgba(0,0,0,0.2);
+    }
+
+    .card-number-group {
+        text-align: center;
+        margin: 1rem 0;
+    }
+    
+    .card-number-group label {
+        font-size: 0.75rem;
+        opacity: 0.9;
+        display: block;
+        margin-bottom: 4px;
+        text-align: right;
+    }
+
+    .number-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255,255,255,0.2);
+        padding: 8px 12px;
+        border-radius: 8px;
+        backdrop-filter: blur(4px);
+    }
+
+    .digit-font {
+        font-family: 'Courier New', monospace;
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-shadow: 0 2px 2px rgba(0,0,0,0.1);
+        direction: ltr;
+    }
+
+    .copy-btn {
+        background: rgba(255,255,255,0.3);
+        border: none;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .copy-btn:hover {
+        background: white;
+        color: #e11d48;
+    }
+
+    .card-details-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+
+    .detail-group {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .detail-group label {
+        font-size: 0.7rem;
+        opacity: 0.9;
+        margin-bottom: 2px;
+    }
+    
+    .detail-group span {
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .sheba-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255,255,255,0.2);
+        padding: 4px 8px;
+        border-radius: 6px;
+        backdrop-filter: blur(4px);
+    }
+
+    .toast {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%) translateY(100px);
+        background: #1f2937;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        z-index: 3000;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.9rem;
+    }
+    .toast.show {
+        transform: translateX(-50%) translateY(0);
+    }
+
     /* --- Responsive --- */
     @media (max-width: 1024px) {
         .hero-text h2 { font-size: 2.8rem; }
         .tracker-content-grid { grid-template-columns: 1fr; gap: 3rem; }
         .feature-icons-grid { grid-template-columns: 1fr 1fr; }
-        .tracker-image-container { 
-            height: 450px; 
-            aspect-ratio: auto;
-        }
+        .tracker-image-container { height: 450px; aspect-ratio: auto; }
     }
 
     @media (max-width: 992px) {
-      .cta-btn { display: none; } /* دکمه هدر در تبلت مخفی شود */
+      .cta-btn { display: none; }
     }
 
     @media (max-width: 768px) {
-      :root {
-          --header-height: 70px;
-      }
-      
-      .main-nav {
-        position: fixed;
-        top: 0;
-        right: -100%; /* مخفی در ابتدا */
-        width: 80%; /* عرض منو */
-        max-width: 300px;
-        height: 100vh;
-        background: white;
-        flex-direction: column;
-        padding: 6rem 2rem 2rem;
-        box-shadow: -5px 0 25px rgba(0,0,0,0.15);
-        transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 1001;
-        gap: 1.5rem;
-      }
+      :root { --header-height: 70px; }
+      .main-nav { position: fixed; top: 0; right: -100%; width: 80%; max-width: 300px; height: 100vh; background: white; flex-direction: column; padding: 6rem 2rem 2rem; box-shadow: -5px 0 25px rgba(0,0,0,0.15); transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1001; gap: 1.5rem; }
       .main-nav.active { right: 0; }
-
-      .main-nav a {
-          font-size: 1.1rem;
-          border-bottom: 1px solid var(--border);
-          padding-bottom: 0.5rem;
-          width: 100%;
-      }
-      .main-nav a::after { display: none; } /* حذف خط زیر متحرک در موبایل */
-      
+      .main-nav a { font-size: 1.1rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; width: 100%; }
+      .main-nav a::after { display: none; }
       .hamburger { display: block; z-index: 1002; }
-      /* وقتی منو باز است، دکمه همبرگر باید روی منو باشد یا هندل شود، اینجا ساده نگه می‌داریم */
-
-      .hero-grid, .about-card, .contact-wrapper {
-        grid-template-columns: 1fr;
-        gap: 3rem;
-      }
-      
+      .hero-grid, .about-card, .contact-wrapper { grid-template-columns: 1fr; gap: 3rem; }
       .hero { padding: 2rem 0 4rem; text-align: center; }
       .hero-text h2 { font-size: 2.2rem; margin-top: 1rem; }
       .hero-actions { justify-content: center; }
-      .hero-media { order: -1; transform: none !important; } /* غیرفعال کردن افکت سه بعدی در موبایل */
+      .hero-media { order: -1; transform: none !important; }
       .hero-media img { transform: none !important; }
-      
       .footer-row { flex-direction: column; gap: 1.5rem; text-align: center; }
-      
       .brand h1 { font-size: 1rem; }
       .brand .tagline { display: none; }
-
-      /* Responsive Updates for Fuel Tracker */
       .tracker-image-container { height: 350px; }
-      .tracker-form-card { 
-          flex-direction: column; 
-          align-items: stretch; 
-          text-align: center;
-          gap: 1rem;
-          left: 1rem; right: 1rem; bottom: 1rem;
-          padding: 1.25rem;
-      }
+      .tracker-form-card { flex-direction: column; align-items: stretch; text-align: center; gap: 1rem; left: 1rem; right: 1rem; bottom: 1rem; padding: 1.25rem; }
       .tracker-btn { width: 100%; }
       .feature-icons-grid { grid-template-columns: 1fr; }
-      
       .about-card { padding: 1.5rem; }
       .contact-form-container, .contact-info { padding: 2rem; }
+      .mellat-card { height: auto; min-height: 240px; padding: 20px; }
+      .digit-font { font-size: 1.1rem; letter-spacing: 1px; }
+      .sheba-row .digit-font { font-size: 0.7rem !important; }
     }
   </style>
 </head>
@@ -899,7 +1028,6 @@
         <a href="#fuel-tracker" class="nav-link">ردیاب سوخت</a>
         <a href="#gallery" class="nav-link">گالری</a>
         <a href="#contact" class="nav-link">تماس</a>
-        <!-- دکمه مخصوص داخل منوی موبایل -->
         <div style="margin-top: auto; border-top: 1px solid var(--border); padding-top: 1rem; display: none;" class="mobile-only-cta">
              <button class="btn btn-primary" style="width:100%" onclick="location.href='#contact'">همکاری با ما</button>
         </div>
@@ -928,9 +1056,7 @@
             <a class="btn btn-outline" href="#gallery">پروژه‌ها</a>
           </div>
         </div>
-
         <div class="hero-media">
-          <!-- تصویر جایگزین شده با لینک درخواستی کاربر -->
           <img src="https://cdn.wikifarmer.com/images/detailed/2024/07/Internet-of-Things-IoT-Solutions-for-Boosting-Efficiency-and-Sustainability-in-Agriculture-.png" alt="IoT Solutions in Agriculture" />
         </div>
       </div>
@@ -955,9 +1081,7 @@
             </ul>
             </div>
             <div style="position: relative;">
-            <!-- تصویر اصلاح شده: مهندسی الکترونیک -->
             <img src="9.avif" alt="Engineering Team" style="border-radius: 16px; box-shadow: var(--shadow-md);" />
-            <!-- المنت تزئینی -->
             <div style="position: absolute; bottom: -20px; right: -20px; background: white; padding: 1rem; border-radius: 12px; box-shadow: var(--shadow-lg); display: flex; gap: 10px; align-items: center;">
                 <div style="background: var(--primary-light); color: var(--primary); padding: 8px; border-radius: 8px;"><i data-lucide="users"></i></div>
                 <div>
@@ -977,68 +1101,59 @@
             <h3>محصولات و راهکارها</h3>
             <p>تجهیزات طراحی شده برای شرایط سخت صنعتی</p>
         </div>
-
         <div class="product-grid">
-            <!-- محصول ۱: گیت‌وی -->
             <article class="product-card">
             <div class="product-img-wrapper">
                 <span class="badge available">موجود</span>
-                <!-- تصویر اصلاح شده -->
                 <img src="2.avif" alt="Industrial Gateway" />
             </div>
             <div class="product-body">
                 <h4>گیت‌وی صنعتی Emerald-GW</h4>
-                <p>پشتیبانی از پروتکل‌های MQTT و Modbus با قابلیت اتصال 4G/LTE و پردازش لبه‌ای (Edge Computing).</p>
+                <p>پشتیبانی از پروتکل‌های MQTT و Modbus با قابلیت اتصال 4G/LTE و پردازش لبه‌ای.</p>
                 <div class="product-footer">
-                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                    <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
                 </div>
             </div>
             </article>
 
-            <!-- محصول ۲: سنسور -->
             <article class="product-card">
             <div class="product-img-wrapper">
                 <span class="badge custom">سفارشی</span>
-                <!-- تصویر اصلاح شده -->
                 <img src="7.avif" alt="Smart Sensor" />
             </div>
             <div class="product-body">
                 <h4>سنسور هوشمند محیطی</h4>
                 <p>پایش دما، رطوبت و گازهای سمی با عمر باتری ۵ ساله و شبکه LoRaWAN.</p>
                 <div class="product-footer">
-                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                    <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
                 </div>
             </div>
             </article>
 
-            <!-- محصول ۳: کنترلر -->
             <article class="product-card">
             <div class="product-img-wrapper">
                 <span class="badge available">موجود</span>
-                <!-- تصویر اصلاح شده -->
                 <img src="8.avif" alt="Industrial Controller" />
             </div>
             <div class="product-body">
                 <h4>کنترلر هوشمند موتورخانه</h4>
                 <p>مدیریت انرژی و کنترل پمپ‌ها با الگوریتم‌های یادگیری ماشین جهت کاهش مصرف سوخت.</p>
                 <div class="product-footer">
-                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                    <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
                 </div>
             </div>
             </article>
 
-            <!-- محصول ۴: ردیاب -->
             <article class="product-card">
             <div class="product-img-wrapper">
                 <span class="badge new">جدید</span>
-                <!-- تصویر اصلاح شده -->
                 <img src="5.avif" alt="Vehicle Tracking" />
             </div>
             <div class="product-body">
                 <h4>ردیاب خودرو هوشمند</h4>
                 <p>ردیابی لحظه‌ای (GPS/GLONASS)، خاموش کردن خودرو از راه دور و آنالیز رفتار راننده.</p>
                 <div class="product-footer">
-                <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
+                    <a class="link-btn" href="#">مشاهده جزئیات <i data-lucide="arrow-left" size="14"></i></a>
                 </div>
             </div>
             </article>
@@ -1046,73 +1161,45 @@
       </div>
     </section>
 
-    <!-- بخش ردیاب هوشمند سوخت (طراحی جدید UI/UX) -->
+    <!-- بخش ردیاب هوشمند سوخت -->
     <section id="fuel-tracker">
         <div class="container">
             <div class="section-header">
                 <h3>سامانه مدیریت هوشمند کشاورزی</h3>
                 <p>اتصال امن به سامانه جهاد کشاورزی و مانیتورینگ مصرف سوخت</p>
             </div>
-
             <div class="tracker-content-grid">
-                <!-- ستون اطلاعات (راست) -->
                 <div class="tracker-details">
                     <p style="margin-bottom: 2rem; color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
-                        این سامانه فراتر از یک ردیاب سوخت، شریک مورد اعتماد شما در حفاظت از سرمایه‌های مزرعه است. با نظارت لحظه‌ای بر سلامت و موقعیت ماشین‌آلات، هزینه‌های تعمیرات و نگهداری را کاهش دهید و مدیریت تجهیزات خود را با آسودگی خاطر و دقت بالا انجام دهید.
+                        این سامانه فراتر از یک ردیاب سوخت، شریک مورد اعتماد شما در حفاظت از سرمایه‌های مزرعه است. با نظارت لحظه‌ای بر سلامت و موقعیت ماشین‌آلات، هزینه‌های تعمیرات و نگهداری را کاهش دهید.
                     </p>
-
                     <div class="feature-icons-grid">
                         <div class="feature-icon-item">
                             <div class="icon-box"><i data-lucide="map-pin"></i></div>
-                            <h5>ردیابی لحظه‌ای (Live GPS)</h5>
-                            <p>مشاهده دقیق موقعیت مکانی و مسیر حرکت تراکتورها روی نقشه.</p>
+                            <h5>ردیابی لحظه‌ای</h5>
+                            <p>مشاهده دقیق موقعیت مکانی و مسیر حرکت.</p>
                         </div>
                         <div class="feature-icon-item">
                             <div class="icon-box"><i data-lucide="fuel"></i></div>
                             <h5>سنسور سطح سوخت</h5>
-                            <p>دقت اندازه‌گیری ۹۹.۵٪ با نمودار مصرف لحظه‌ای.</p>
+                            <p>دقت اندازه‌گیری ۹۹.۵٪ با نمودار مصرف.</p>
                         </div>
                         <div class="feature-icon-item">
                             <div class="icon-box"><i data-lucide="shield"></i></div>
                             <h5>امنیت سخت‌افزاری</h5>
-                            <p>ضد دستکاری (Tamper-proof) و مقاوم در برابر نویز.</p>
+                            <p>ضد دستکاری و مقاوم در برابر نویز.</p>
                         </div>
-                        <div class="feature-icon-item">
-                            <div class="icon-box"><i data-lucide="file-check"></i></div>
-                            <h5>تاییدیه جهاد کشاورزی</h5>
-                            <p>ارسال خودکار گزارش کارکرد برای دریافت سهمیه.</p>
-                        </div>
-                        
-                        <!-- قابلیت‌های جدید اضافه شده -->
                         <div class="feature-icon-item">
                             <div class="icon-box"><i data-lucide="power"></i></div>
                             <h5>کنترل از راه دور</h5>
-                            <p>قابلیت روشن و خاموش کردن موتور ماشین‌آلات از طریق اپلیکیشن موبایل.</p>
-                        </div>
-                        <div class="feature-icon-item">
-                            <div class="icon-box"><i data-lucide="bell-ring"></i></div>
-                            <h5>هشدار استارت (Ignition)</h5>
-                            <p>ارسال اعلان فوری و پیامک به محض روشن شدن ناخواسته ماشین‌آلات.</p>
-                        </div>
-                        <div class="feature-icon-item">
-                            <div class="icon-box"><i data-lucide="map"></i></div>
-                            <h5>حصار جغرافیایی (Geofence)</h5>
-                            <p>تعیین محدوده مجاز و دریافت هشدار در صورت خروج ماشین از مزرعه.</p>
+                            <p>روشن و خاموش کردن موتور با اپلیکیشن.</p>
                         </div>
                     </div>
                 </div>
-
-                <!-- ستون تصویر و فرم (چپ - با طراحی Glassmorphism) -->
                 <div class="tracker-image-container">
-                    <!-- تصویر جدید درخواستی -->
                     <img src="https://ismg-cdn.nyc3.cdn.digitaloceanspaces.com/blogs/when-hackers-meet-tractors-surprising-roles-in-iot-security-showcase_image-3-p-3769.jpg" 
-                         alt="Smart Tractor IoT Security" 
-                         class="tracker-image-bg"/>
-                    
-                    <!-- لایه سایه پایین عکس -->
+                         alt="Smart Tractor IoT Security" class="tracker-image-bg"/>
                     <div class="tracker-overlay-gradient"></div>
-
-                    <!-- کارت فرم شناور -->
                     <div class="tracker-form-card">
                         <div class="tracker-cta-text">
                             <h4>ثبت نام و دریافت تجهیزات</h4>
@@ -1134,7 +1221,6 @@
             <h3>گالری پروژه‌ها</h3>
             <p>نگاهی به خط تولید و پروژه‌های اجرایی</p>
         </div>
-
         <div class="gallery-grid" id="galleryGrid">
             <div class="gallery-item">
             <img src="1.avif" data-full="1.avif" alt="High Tech Chip" />
@@ -1166,7 +1252,6 @@
                 <p style="margin-bottom: 2rem; color: #e5e7eb; line-height:1.6;">
                     برای مشاوره رایگان در زمینه هوشمندسازی صنعتی و دریافت پیش‌فاکتور با کارشناسان ما تماس بگیرید.
                 </p>
-                
                 <div class="contact-detail">
                     <i data-lucide="map-pin"></i>
                     <span>خوزستان، اهواز، پارک علم و فناوری، ساختمان مرکزی</span>
@@ -1180,7 +1265,6 @@
                     <a href="mailto:info@emerald-iot.ir">info@emerald-iot.ir</a>
                 </div>
             </div>
-            
             <div style="margin-top: 2rem;">
                 <h4 style="margin-bottom:1rem; color:white; font-size: 1.1rem;">ما را دنبال کنید</h4>
                 <div class="socials">
@@ -1193,7 +1277,7 @@
 
             <div class="contact-form-container">
             <h3 style="color: var(--secondary); margin-bottom: 1.5rem; font-size: 1.5rem;">ارسال پیام</h3>
-            <form action="#" method="POST">
+            <form action="https://formspree.io/f/YOUR_CODE" method="POST">
                 <div class="form-group">
                 <label for="name" class="form-label">نام و نام خانوادگی</label>
                 <input id="name" name="name" type="text" class="form-input" placeholder="مثال: علی رضایی" required />
@@ -1211,6 +1295,56 @@
             </div>
         </div>
       </div>
+    </section>
+
+    <!-- بخش جدید: اطلاعات پرداخت (کارت بانک ملت - اصلاح شده) -->
+    <section class="payment-info-section container" style="margin-bottom: 6rem;">
+        <div class="section-header">
+            <h3>اطلاعات واریز وجه</h3>
+            <p>جهت نهایی‌سازی سفارشات، می‌توانید از شماره کارت زیر استفاده نمایید</p>
+        </div>
+        
+        <div class="bank-card-container">
+            <div class="mellat-card">
+                <div class="card-top">
+                    <span class="bank-name">بانک ملت</span>
+                    <div style="display:flex; align-items:center; gap:5px;">
+                        <span style="font-size:0.7rem; opacity:0.9; letter-spacing:1px;">Mellat Bank</span>
+                        <i data-lucide="credit-card" style="width:24px; height:24px;"></i>
+                    </div>
+                </div>
+                
+                <div class="card-chip">
+                    <div class="chip-part"></div>
+                </div>
+                
+                <div class="card-number-group">
+                    <label>شماره کارت</label>
+                    <div class="number-row">
+                        <span id="cardNumber" class="digit-font">6104 3389 6809 7523</span>
+                        <button class="copy-btn" onclick="copyText('6104338968097523', 'شماره کارت')" title="کپی شماره کارت">
+                            <i data-lucide="copy" style="width:16px;"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card-details-row">
+                    <div class="detail-group">
+                        <label>نام صاحب حساب</label>
+                        <span>فاطمه غبیشاوی</span>
+                    </div>
+                    <div class="detail-group" style="text-align: left; max-width: 60%;">
+                        <label>شماره شبا</label>
+                        <div class="sheba-row">
+                            <span id="shebaNumber" class="digit-font" style="font-size: 0.8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">IR870120010000004499669776</span>
+                            <button class="copy-btn" onclick="copyText('IR870120010000004499669776', 'شماره شبا')" title="کپی شماره شبا">
+                                <i data-lucide="copy" style="width:16px;"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
   </main>
@@ -1235,113 +1369,81 @@
     <img id="modalImg" src="" alt="Full View" />
   </div>
 
-  <script>
-    // 1. Initialize Icons
-    document.addEventListener('DOMContentLoaded', () => {
-        if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-        }
-    });
+  <!-- Toast Notification Element -->
+  <div id="toast" class="toast">
+      <i data-lucide="check-circle" style="color: #10b981;"></i>
+      <span id="toastMessage">متن کپی شد</span>
+  </div>
 
-    // 2. Mobile Menu & Overlay Logic
+  <script>
+    document.addEventListener('DOMContentLoaded', () => { if (typeof lucide !== 'undefined') lucide.createIcons(); });
+
+    // Menu Logic
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
     const overlay = document.getElementById('mobileOverlay');
     const body = document.body;
 
     function toggleMenu() {
-        mainNav.classList.toggle('active');
-        overlay.classList.toggle('active');
-        // جلوگیری از اسکرول صفحه وقتی منو باز است
-        if (mainNav.classList.contains('active')) {
-            body.style.overflow = 'hidden';
-        } else {
-            body.style.overflow = '';
-        }
+        mainNav.classList.toggle('active'); overlay.classList.toggle('active');
+        if (mainNav.classList.contains('active')) body.style.overflow = 'hidden'; else body.style.overflow = '';
     }
+    if (menuToggle) { menuToggle.addEventListener('click', toggleMenu); overlay.addEventListener('click', toggleMenu); }
+    document.querySelectorAll('.main-nav a').forEach(link => { link.addEventListener('click', () => { if (mainNav.classList.contains('active')) toggleMenu(); }); });
 
-    if (menuToggle) {
-      menuToggle.addEventListener('click', toggleMenu);
-      overlay.addEventListener('click', toggleMenu); // بستن با کلیک روی Overlay
-    }
-
-    // بستن منو با کلیک روی لینک‌ها
-    document.querySelectorAll('.main-nav a').forEach(link => {
-      link.addEventListener('click', () => {
-        if (mainNav.classList.contains('active')) toggleMenu();
-      });
-    });
-
-    // 3. Gallery Modal
+    // Gallery Logic
     const gallery = document.getElementById('galleryGrid');
     const modal = document.getElementById('modal');
     const modalImg = document.getElementById('modalImg');
+    function closeModal() { if (modal) { modal.classList.remove('open'); setTimeout(() => { modal.style.display = 'none'; }, 300); modal.setAttribute('aria-hidden', 'true'); modalImg.src = ''; } }
+    if (gallery) { gallery.addEventListener('click', (e) => { const item = e.target.closest('.gallery-item'); if (item) { const img = item.querySelector('img'); const fullSrc = img.getAttribute('data-full') || img.src; modalImg.src = fullSrc; modal.style.display = 'flex'; setTimeout(() => modal.classList.add('open'), 10); modal.setAttribute('aria-hidden', 'false'); } }); }
+    if (modal) modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
 
-    function closeModal() {
-      if (modal) {
-        modal.classList.remove('open');
-        setTimeout(() => {
-            modal.style.display = 'none';
-        }, 300); // صبر برای انیمیشن
-        modal.setAttribute('aria-hidden', 'true');
-        modalImg.src = '';
-      }
-    }
-
-    if (gallery) {
-      gallery.addEventListener('click', (e) => {
-        const item = e.target.closest('.gallery-item');
-        if (item) {
-          const img = item.querySelector('img');
-          const fullSrc = img.getAttribute('data-full') || img.src; 
-          modalImg.src = fullSrc;
-          modal.style.display = 'flex';
-          // Small delay to allow display:flex to apply before opacity transition
-          setTimeout(() => modal.classList.add('open'), 10);
-          modal.setAttribute('aria-hidden', 'false');
+    // Copy to Clipboard Function (Updated for robustness)
+    function copyText(text, label) {
+        const textArea = document.createElement("textarea");
+        textArea.value = text;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        textArea.style.top = "0";
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            const successful = document.execCommand('copy');
+            if (successful) {
+                const toast = document.getElementById('toast');
+                const toastMsg = document.getElementById('toastMessage');
+                toastMsg.innerText = label + ' کپی شد';
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            } else {
+                console.error('کپی ناموفق بود.');
+            }
+        } catch (err) {
+            console.error('خطا در کپی متن: ', err);
         }
-      });
+        
+        document.body.removeChild(textArea);
     }
 
-    if (modal) {
-      modal.addEventListener('click', (e) => {
-        if(e.target === modal) closeModal();
-      });
-    }
-
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // 4. Navbar Scroll Effect & Spy
+    // Scroll Spy
     const header = document.getElementById('siteHeader');
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.main-nav a.nav-link');
-
     window.addEventListener('scroll', () => {
-      // Header Shadow effect
-      if (window.scrollY > 50) {
-          header.classList.add('scrolled');
-      } else {
-          header.classList.remove('scrolled');
-      }
-
-      // Scroll Spy
+      if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled');
       let current = '';
       sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        // فرمول دقیق‌تر برای تشخیص بخش فعال
-        if (scrollY >= (sectionTop - 150)) { 
-          current = section.getAttribute('id');
-        }
+        if (scrollY >= (section.offsetTop - 150)) current = section.getAttribute('id');
       });
-
       navLinks.forEach(link => {
         link.classList.remove('active');
-        if (link.getAttribute('href').includes(current)) {
-          link.classList.add('active');
-        }
+        if (link.getAttribute('href').includes(current)) link.classList.add('active');
       });
     });
   </script>
